@@ -1835,13 +1835,29 @@ document.querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{d
             </style>
 
             <div class="img-stack">
-              <div class="stack-img stack-wide">
-                <input type="file" accept="image/*,video/*">
-                <div class="stack-img-inner">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#bbb" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="#bbb"/><path d="M21 15l-5-5L5 21" stroke="#bbb" stroke-width="1.5"/></svg>
-                  <span>Annotated snapshot</span>
-                </div>
+  
+            <!-- Annotated snapshot (IMAGE ADDED) -->
+            <div class="stack-img stack-wide">
+              <img 
+                src="/images/DD03-01.jpg" 
+                alt="Annotated snapshot"
+                style="width:100%; height:100%; object-fit:cover; border-radius:14px;"
+              />
+            </div>
+
+            <!-- Feature video (still upload for now) -->
+            <div class="stack-img stack-sq">
+              <input type="file" accept="image/*,video/*">
+              <div class="stack-img-inner">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/>
+                  <path d="M10 9l5 3-5 3V9z" fill="#bbb"/>
+                </svg>
+                <span>Feature video</span>
               </div>
+            </div>
+
+          </div>
               <div class="stack-img stack-sq">
                 <input type="file" accept="image/*,video/*">
                 <div class="stack-img-inner">
