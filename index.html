@@ -11,26 +11,16 @@ html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;font-weight:300;background:#f9f8f6;color:#111;line-height:1.7;overflow-x:hidden;}
 :root{--black:#0d0d0d;--off-white:#f9f8f6;--border:#e4e2de;--muted:#888;--accent:#c8392b;--serif:'DM Serif Display',serif;--max:900px;--pad:24px;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(249,248,246,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 var(--pad);height:52px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-family:var(--serif);font-size:15px;color:var(--black);text-decoration:none;}
-.nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:.02em;transition:color .2s;}
-.nav-links a:hover,.nav-links a.active{color:var(--black);}
-
 /* SIDE NAV */
-.side-nav{position:fixed;left:32px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:0;opacity:0;pointer-events:none;transition:opacity .4s;}
-.side-nav.visible{opacity:1;pointer-events:all;}
-.side-nav-item{display:flex;align-items:center;gap:10px;padding:5px 0;cursor:pointer;text-decoration:none;}
-.side-nav-item .sn-dot{width:5px;height:5px;border-radius:50%;background:#ccc;flex-shrink:0;transition:background .2s,transform .2s;}
-.side-nav-item .sn-label{font-size:11px;color:#bbb;letter-spacing:.04em;opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s,color .2s;white-space:nowrap;}
-.side-nav:hover .sn-label{opacity:1;transform:translateX(0);}
-.side-nav-item.active .sn-dot{background:var(--black);transform:scale(1.4);}
-.side-nav-item.active .sn-label{color:var(--black);}
-@media(max-width:1100px){.side-nav{display:none;}}
+.sni{display:flex;align-items:center;gap:9px;padding:5px 0;cursor:pointer;text-decoration:none;}
+.sni-dot{width:5px;height:5px;border-radius:50%;background:#ccc;flex-shrink:0;transition:background .2s,transform .2s;}
+.sni-label{font-size:12px;color:#bbb;letter-spacing:.02em;white-space:nowrap;font-weight:400;transition:color .2s;}
+.sni.active .sni-dot{background:var(--black);transform:scale(1.5);}
+.sni.active .sni-label{color:var(--black);font-weight:500;}
+@media(max-width:1100px){#sideNav{display:none !important;}}
 
 /* LAYOUT */
-.container{max-width:var(--max);margin:0 auto;padding:0 var(--pad);}
+.container{max-width:860px;margin:0 auto;padding:0 48px;}
 
 /* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
@@ -634,85 +624,119 @@ footer a:hover{text-decoration:underline;}
 </head>
 <body>
 
-<nav>
-  <a href="#hero" class="nav-logo">Data Ichiba</a>
-  <ul class="nav-links">
-    <li><a href="#research">Research</a></li>
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#decisions">Decisions</a></li>
-    <li><a href="#testing">Testing</a></li>
-    <li><a href="#learnings">Learnings</a></li>
-  </ul>
-</nav>
+<!-- TOP BAR — logo only, no links -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 32px;background:rgba(249,248,246,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);">
+  <a href="#hero" style="font-family:var(--serif);font-size:15px;color:var(--black);text-decoration:none;letter-spacing:0.02em;">Data Ichiba</a>
+</header>
 
-<aside class="side-nav" id="sideNav">
-  <a href="#hero"      class="side-nav-item" data-section="hero">     <span class="sn-dot"></span><span class="sn-label">Intro</span></a>
-  <a href="#mission"   class="side-nav-item" data-section="mission">  <span class="sn-dot"></span><span class="sn-label">Mission</span></a>
-  <a href="#problem"   class="side-nav-item" data-section="problem">  <span class="sn-dot"></span><span class="sn-label">Problem</span></a>
-  <a href="#research"  class="side-nav-item" data-section="research"> <span class="sn-dot"></span><span class="sn-label">Research</span></a>
-  <a href="#solution"  class="side-nav-item" data-section="solution"> <span class="sn-dot"></span><span class="sn-label">Solution</span></a>
-  <a href="#decisions" class="side-nav-item" data-section="decisions"><span class="sn-dot"></span><span class="sn-label">Decisions</span></a>
-  <a href="#ai"        class="side-nav-item" data-section="ai">       <span class="sn-dot"></span><span class="sn-label">AI Process</span></a>
-  <a href="#context"   class="side-nav-item" data-section="context">  <span class="sn-dot"></span><span class="sn-label">Context</span></a>
-  <a href="#testing"   class="side-nav-item" data-section="testing">  <span class="sn-dot"></span><span class="sn-label">Testing</span></a>
-  <a href="#final"     class="side-nav-item" data-section="final">    <span class="sn-dot"></span><span class="sn-label">Final Solution</span></a>
-  <a href="#learnings" class="side-nav-item" data-section="learnings"><span class="sn-dot"></span><span class="sn-label">Learnings</span></a>
+<!-- SIDE NAV -->
+<aside id="sideNav" style="position:fixed;left:28px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:2px;opacity:0;pointer-events:none;transition:opacity 0.4s;">
+  <a href="#hero"      class="sni" data-section="hero">     <span class="sni-dot"></span><span class="sni-label">Intro</span></a>
+  <a href="#context"   class="sni" data-section="context">  <span class="sni-dot"></span><span class="sni-label">Overview</span></a>
+  <a href="#problem"   class="sni" data-section="problem">  <span class="sni-dot"></span><span class="sni-label">Problem</span></a>
+  <a href="#hmw"       class="sni" data-section="hmw">      <span class="sni-dot"></span><span class="sni-label">How Might We</span></a>
+  <a href="#goals"     class="sni" data-section="goals">    <span class="sni-dot"></span><span class="sni-label">Design Goals</span></a>
+  <a href="#impact"    class="sni" data-section="impact">   <span class="sni-dot"></span><span class="sni-label">Impact</span></a>
+  <a href="#research"  class="sni" data-section="research"> <span class="sni-dot"></span><span class="sni-label">Research</span></a>
+  <a href="#decisions" class="sni" data-section="decisions"><span class="sni-dot"></span><span class="sni-label">Decisions</span></a>
+  <a href="#pushback"  class="sni" data-section="pushback"> <span class="sni-dot"></span><span class="sni-label">Pushback</span></a>
+  <a href="#results"   class="sni" data-section="results">  <span class="sni-dot"></span><span class="sni-label">Results</span></a>
+  <a href="#final"     class="sni" data-section="final">    <span class="sni-dot"></span><span class="sni-label">Final Solution</span></a>
+  <a href="#learnings" class="sni" data-section="learnings"><span class="sni-dot"></span><span class="sni-label">Learnings</span></a>
 </aside>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="container">
-    <div class="fade-up">
-      <div class="eyebrow">Case Study &middot; Bridgestone &middot; 2025</div>
+  <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;max-width:960px;margin:0 auto;width:100%;position:relative;overflow:hidden;background:var(--off-white);">
+    <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1a0a0a 0%,#f9f8f6 45%,#f9f8f6 100%);opacity:0.06;pointer-events:none;"></div>
+    <div class="fade-up" style="position:relative;z-index:1;max-width:900px;">
       <h1>Building an end-to-end<br><em>data marketplace</em><br>for 10,000+ employees</h1>
-      <p class="hero-subtext">An internal initiative to democratise data across Bridgestone &mdash; making every dataset discoverable, understandable, and accessible to everyone.</p>
-      <div class="ai-row">
-        <span style="font-size:12px;color:var(--muted)">AI-accelerated process:</span>
-        <div class="ai-badge"><div class="dot" style="background:#c084fc"></div>Claude</div>
-        <div class="ai-badge"><div class="dot" style="background:#10b981"></div>ChatGPT</div>
-        <div class="ai-badge"><div class="dot" style="background:#3b82f6"></div>Gemini</div>
-        <div class="ai-badge"><div class="dot" style="background:#f59e0b"></div>Lovable</div>
-        <a href="#ai" style="font-size:12px;color:var(--black);margin-left:8px;text-decoration:underline">How AI was my design partner &darr;</a>
-      </div>
-      <div class="video-row">
-        <div class="media-placeholder medium"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Add video</span></div>
-        <div class="media-placeholder medium"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Add video</span></div>
-        <div class="media-placeholder medium"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Add video</span></div>
-      </div>
-      <div class="hero-meta">
-        <div class="meta-item"><label>Client</label><span>Bridgestone</span></div>
-        <div class="meta-item"><label>Company</label><span>Matco</span></div>
-        <div class="meta-item"><label>Role</label><span>Product Designer</span></div>
-        <div class="meta-item"><label>Year</label><span>2025</span></div>
-        <div class="meta-item"><label>Team</label><div class="team-row"><span class="team-pill">1 Designer</span><span class="team-pill">2 Developers</span><span class="team-pill">1 PM</span><span class="team-pill">1 Engineering Lead</span></div></div>
-      </div>
-      <div class="hmw-full" style="margin-top:0;padding-top:48px;padding-bottom:48px;">
-        <div class="hmw-pill">The Problem</div>
-        <div class="hmw-title">how might we</div>
-        <div class="hmw-body">help organisations make decisions from a single source of truth &mdash; where finding, understanding, and accessing data is so intuitive that technical fluency is never a barrier?</div>
+      <p style="font-size:17px;color:#666;max-width:540px;line-height:1.7;margin:20px 0 28px;">An internal initiative to democratise data across Bridgestone &mdash; making every dataset discoverable, understandable, and accessible to everyone.</p>
+
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:40px;">
+        <span style="font-size:11px;font-weight:500;color:#fff;background:var(--black);border-radius:20px;padding:4px 12px;letter-spacing:0.04em;">Shipped</span>
+        <span style="font-size:11px;color:#666;background:#eeece8;border:1px solid var(--border);border-radius:20px;padding:4px 12px;">B2B SaaS</span>
+        <span style="font-size:11px;color:#666;background:#eeece8;border:1px solid var(--border);border-radius:20px;padding:4px 12px;">Enterprise</span>
+        <span style="font-size:11px;color:#666;background:#eeece8;border:1px solid var(--border);border-radius:20px;padding:4px 12px;">Data Platform</span>
       </div>
 
-      <div class="impact-full" id="impactRow">
-        <div class="impact-pill">The Impact</div>
-        <div class="impact-numbers">
-          <div class="impact-col">
-            <div class="impact-big-num"><span class="counter" data-target="800" data-suffix="+">0</span></div>
-            <div class="impact-big-sub">datasets catalogued and discoverable in one place</div>
-          </div>
-          <div class="impact-divider"></div>
-          <div class="impact-col">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-              <span class="counter-from" style="font-family:var(--serif);font-size:clamp(40px,6vw,80px);background:linear-gradient(180deg,#fff 0%,#888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;letter-spacing:-0.03em;">7d</span>
-              <span class="arrow-anim" style="font-size:clamp(20px,3vw,36px);color:#c8392b;-webkit-text-fill-color:#c8392b;opacity:0;transform:translateX(-6px);transition:opacity .4s ease .2s,transform .4s ease .2s;">&rarr;</span>
-              <span class="counter-to" style="font-family:var(--serif);font-size:clamp(40px,6vw,80px);background:linear-gradient(180deg,#fff 0%,#888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;letter-spacing:-0.03em;opacity:0;transform:translateY(8px);transition:opacity .4s ease .4s,transform .4s ease .4s;">24h</span>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;">
+        <div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add product video</span>
+</div><div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add product video</span>
+</div><div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add product video</span>
+</div>
+      </div>
+
+      <div style="display:flex;gap:48px;flex-wrap:wrap;padding-top:32px;border-top:1px solid var(--border);">
+        <div><div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Client</div><div style="font-size:14px;color:var(--black);">Bridgestone</div></div>
+        <div><div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Company</div><div style="font-size:14px;color:var(--black);">MathCo</div></div>
+        <div><div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Role</div><div style="font-size:14px;color:var(--black);">Product Designer</div></div>
+        <div><div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Team</div><div style="font-size:14px;color:var(--black);">1 Designer &middot; 2 Developers &middot; 1 PM &middot; 1 Engineering Lead</div></div>
+        <div><div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Year</div><div style="font-size:14px;color:var(--black);">2024</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section id="context">
+  <div class="container">
+    <div class="fade-up">
+      <div class="eyebrow">Overview</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:16px;">
+        <div>
+          <p style="font-size:16px;color:#444;line-height:1.85;margin-bottom:0;">Bridgestone operates across 6 business functions &mdash; LSCM, Finance, Sales, Marketing, Commodity, and Operations. Every team relied on data to make decisions. But the data lived in two places that worked for almost no one.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <style>
+          .tool-card { position:relative; border-radius:12px; overflow:hidden; cursor:pointer; height:180px; border:1px solid var(--border); }
+          .tool-card-img { width:100%; height:100%; background:#eeece8; display:flex; align-items:center; justify-content:center; transition:filter 0.3s; }
+          .tool-card-img svg { opacity:0.3; }
+          .tool-card-overlay { position:absolute; inset:0; background:rgba(13,13,13,0.82); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; opacity:0; transition:opacity 0.3s; }
+          .tool-card:hover .tool-card-img { filter:blur(2px); }
+          .tool-card:hover .tool-card-overlay { opacity:1; }
+          .tool-card-name { font-size:11px; font-weight:500; color:#fff; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+          .tool-card-name::after { content:'→'; font-size:13px; }
+          .tool-card-desc { font-size:12px; color:#aaa; line-height:1.6; }
+          .tool-card-desc code { font-size:11px; background:rgba(255,255,255,0.1); padding:1px 5px; border-radius:3px; color:#ccc; }
+          </style>
+
+          <div class="tool-card">
+            <div class="tool-card-img">
+              <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="#aaa" stroke-width="1.5"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#aaa" stroke-width="1.5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6" stroke="#aaa" stroke-width="1.5"/></svg>
             </div>
-            <div class="impact-big-sub">reduced access request turnaround</div>
+            <div class="tool-card-overlay">
+              <div class="tool-card-name">Amazon Redshift</div>
+              <div class="tool-card-desc">Built for engineers. Required knowledge of exact schema names like <code>view__gold__str</code>. Anyone without SQL fluency was locked out entirely.</div>
+            </div>
           </div>
-          <div class="impact-divider"></div>
-          <div class="impact-col">
-            <div class="impact-big-num"><span class="counter" data-target="9" data-suffix="">0</span></div>
-            <div class="impact-big-sub">teams with varied technical fluency onboarded</div>
+
+          <div class="tool-card">
+            <div class="tool-card-img">
+              <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M3 9h18M9 21V9" stroke="#aaa" stroke-width="1.5"/></svg>
+            </div>
+            <div class="tool-card-overlay">
+              <div class="tool-card-name">SharePoint</div>
+              <div class="tool-card-desc">Accessible to everyone, but organised in folders with no metadata, no search, and no way to know what a file contained before opening it.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;padding:16px 18px;background:#fdf9f9;border:1px solid rgba(200,57,43,0.15);border-radius:10px;align-items:flex-start;">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--accent);margin-top:5px;flex-shrink:0;opacity:0.5;"></div>
+            <div>
+              <div style="font-size:12px;font-weight:500;color:#111;margin-bottom:3px;">The result</div>
+              <div style="font-size:12px;color:var(--muted);line-height:1.65;">Teams chased data owners over email, waited days for access, and still weren&rsquo;t sure they had the right file when it arrived.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -720,231 +744,110 @@ footer a:hover{text-decoration:underline;}
   </div>
 </section>
 
-      <div class="journey-full">
-        <div class="journey-inner">
-          <div class="journey-pill">The Journey</div>
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="fade-up">
+      <div class="eyebrow">Problem</div>
+      <h2>A data tool built for developers,<br>used by everyone.</h2>
+      <p style="font-size:15px;color:#444;line-height:1.8;max-width:600px;margin-bottom:48px;">Bridgestone&rsquo;s analysts, managers, and non-technical teams were expected to navigate a system that spoke in <code style="font-size:13px;background:#f0f0ee;padding:1px 6px;border-radius:3px;color:#555;">view__gold__sourcing</code> and <code style="font-size:13px;background:#f0f0ee;padding:1px 6px;border-radius:3px;color:#555;">view__gold__str</code>. If you didn&rsquo;t know the schema, you couldn&rsquo;t find anything.</p>
 
-          <style>
-          .htl-outer { position:relative; padding: 60px 0 60px; }
-          /* nodes row */
-          .htl-row { display:flex; align-items:center; position:relative; }
-          /* each node takes equal flex space */
-          .htl-item { flex:1; display:flex; flex-direction:column; align-items:center; position:relative; cursor:pointer; }
-          /* last item doesn't grow — just the circle */
-          .htl-item:last-child { flex:0 0 auto; }
-          /* line segment between nodes */
-          .htl-seg { flex:1; height:2px; background:var(--border); position:relative; overflow:hidden; top:0; }
-          .htl-seg-fill { position:absolute; top:0; left:0; height:100%; width:0; background:var(--accent); transition:width 0.5s cubic-bezier(0.4,0,0.2,1); }
-          /* circle */
-          .htl-circ {
-            width:40px; height:40px; border-radius:50%;
-            border:1.5px solid var(--border);
-            background:var(--off-white);
-            display:flex; align-items:center; justify-content:center;
-            position:relative; z-index:2; flex-shrink:0;
-            transition:border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
-          }
-          .htl-item:hover .htl-circ {
-            border-color:var(--accent);
-            background:var(--accent);
-            box-shadow:0 0 0 5px rgba(200,57,43,0.14);
-            transform:scale(1.12);
-          }
-          .htl-wlabel {
-            font-size:9px; letter-spacing:0.12em; text-transform:uppercase;
-            color:var(--muted); font-weight:600; line-height:1;
-            transition:opacity 0.15s;
-          }
-          .htl-item:hover .htl-wlabel { opacity:0; }
-          .htl-check { position:absolute; opacity:0; transition:opacity 0.15s; }
-          .htl-item:hover .htl-check { opacity:1; }
-          /* tooltip */
-          .htl-tip {
-            position:absolute;
-            top:calc(100% + 18px);
-            left:50%; transform:translateX(-50%) translateY(4px);
-            background:var(--black); color:#fff;
-            border-radius:10px; padding:14px 16px;
-            width:190px; pointer-events:none;
-            opacity:0; transition:opacity 0.2s, transform 0.2s;
-            z-index:30; text-align:left; box-shadow:0 8px 24px rgba(0,0,0,0.12);
-          }
-          .htl-tip::before {
-            content:''; position:absolute;
-            bottom:100%; left:50%; transform:translateX(-50%);
-            border:7px solid transparent;
-            border-bottom-color:var(--black);
-          }
-          /* first two nodes: tooltip below; last two: tooltip above */
-          .htl-item:nth-child(-n+2) .htl-tip {
-            top: auto; bottom: calc(100% + 18px);
-            transform:translateX(-50%) translateY(-4px);
-          }
-          .htl-item:nth-child(-n+2) .htl-tip::before {
-            bottom:auto; top:100%;
-            border-bottom-color:transparent;
-            border-top-color:var(--black);
-          }
-          .htl-item:nth-child(-n+2):hover .htl-tip { transform:translateX(-50%) translateY(0); }
-          .htl-item:hover .htl-tip { opacity:1; transform:translateX(-50%) translateY(0); }
-          .htl-tip-wk { font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
-          .htl-tip-ttl { font-size:13px; font-weight:600; color:#fff; margin-bottom:6px; }
-          .htl-tip-dsc { font-size:11px; color:#999; line-height:1.65; }
-          .htl-ai-pop {
-            display:inline-flex; align-items:center; gap:4px;
-            background:linear-gradient(135deg,#7c3aed 0%,#c8392b 100%);
-            border-radius:20px; padding:3px 9px;
-            font-size:10px; font-weight:500; color:#fff;
-            margin-top:8px; letter-spacing:0.02em;
-          }
-          </style>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Key Insight 01</div>
+          <h3 style="font-family:var(--serif);font-size:22px;color:var(--black);margin-bottom:12px;font-weight:400;line-height:1.3;">&ldquo;A tool built for developers, used by everyone.&rdquo;</h3>
+          <p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:20px;">Employees across 6 functions were expected to use Redshift &mdash; a tool that required developer-level knowledge of exact schema names to find anything. Most of them had no SQL knowledge at all.</p>
+          <div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add insight image</span>
+</div>
+        </div>
+        <div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">Key Insight 02</div>
+          <h3 style="font-family:var(--serif);font-size:22px;color:var(--black);margin-bottom:12px;font-weight:400;line-height:1.3;">&ldquo;No way to know if you had the right data.&rdquo;</h3>
+          <p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:20px;">Even if you found a file, there was no metadata, no quality score, no column definitions. You had to request access just to find out if it was relevant to your work.</p>
+          <div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add insight image</span>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div class="htl-outer">
-            <div class="htl-row" id="htlRow">
+<!-- HMW -->
+<section id="hmw" style="padding:0;background:none;border:none;">
+  <div style="background:var(--black);padding:96px 0;">
+    <div class="container">
+      <div class="fade-up" style="text-align:center;max-width:1100px;margin:0 auto;">
+        <div style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#444;margin-bottom:24px;">How Might We</div>
+        <p style="font-family:var(--serif);font-size:clamp(18px,2.1vw,30px);color:#fff;line-height:1.35;font-weight:400;margin:0;">Help a company with 6 different business functions, 1,000+ datasets and users of varied data literacy <em style="color:var(--accent);">find, trust, and access</em> the data they need &mdash; without a developer in the room?</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-              <!-- Node 1: Understand -->
-              <div class="htl-item" id="htlN1">
-                <div class="htl-circ">
-                  <span class="htl-wlabel">W01</span>
-                  <svg class="htl-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div class="htl-tip">
-                  <div class="htl-tip-wk">Week 01</div>
-                  <div class="htl-tip-ttl">Understand</div>
-                  <div class="htl-tip-dsc">Stakeholder interviews, requirement mapping, PRD alignment with data governance &amp; analytics teams.</div>
-                </div>
-              </div>
+<!-- DESIGN GOALS -->
+<section id="goals">
+  <div class="container">
+    <div class="fade-up">
+      <div class="eyebrow">Design Goals</div>
+      <h2>What success looked like.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:40px;">
+        <div style="padding:32px 28px;background:#fafaf8;">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--black);display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4" stroke="#fff" stroke-width="1.3"/><path d="M10 10l4 4" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Goal 01</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:8px;line-height:1.4;">Make data discoverable for everyone</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">Not just analysts. Any employee &mdash; regardless of technical fluency &mdash; should be able to find a relevant dataset in under 2 minutes.</div>
+        </div>
+        <div style="padding:32px 28px;background:#fafaf8;border-left:1px solid var(--border);border-right:1px solid var(--border);">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--black);display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L3 4.5v4C3 11.42 5.24 14.17 8 15c2.76-.83 5-3.58 5-6.5v-4L8 2z" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M5.5 8l2 2 3-3" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Goal 02</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:8px;line-height:1.4;">Build trust before access is requested</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">Users should be able to evaluate data quality, ownership, and relevance before committing to an access request.</div>
+        </div>
+        <div style="padding:32px 28px;background:#fafaf8;">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--black);display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="#fff" stroke-width="1.3"/><path d="M8 5v3.5l2.5 1.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Goal 03</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:8px;line-height:1.4;">Cut access time from days to hours</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">Replace the 7-step email-and-ServiceNow process with a structured in-app pipeline with a defined approval chain.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-              <!-- Segment 1→2 -->
-              <div class="htl-seg"><div class="htl-seg-fill" id="htlS1"></div></div>
-
-              <!-- Node 2: Define -->
-              <div class="htl-item" id="htlN2">
-                <div class="htl-circ">
-                  <span class="htl-wlabel">W02</span>
-                  <svg class="htl-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div class="htl-tip">
-                  <div class="htl-tip-wk">Week 02</div>
-                  <div class="htl-tip-ttl">Define</div>
-                  <div class="htl-tip-dsc">Personas, user flows, use cases, information architecture. Used AI to cluster research insights from interviews.</div>
-                </div>
-              </div>
-
-              <!-- Segment 2→3 -->
-              <div class="htl-seg"><div class="htl-seg-fill" id="htlS2"></div></div>
-
-              <!-- Node 3: Design -->
-              <div class="htl-item" id="htlN3">
-                <div class="htl-circ">
-                  <span class="htl-wlabel">W03</span>
-                  <svg class="htl-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div class="htl-tip">
-                  <div class="htl-tip-wk">Week 03</div>
-                  <div class="htl-tip-ttl">Design</div>
-                  <div class="htl-tip-dsc">Lo-fi wireframes, rapid iteration with devs and engineering. Real feedback on working screens, not sketches.</div>
-                  <div class="htl-ai-pop">&#10024; AI mockups</div>
-                </div>
-              </div>
-
-              <!-- Segment 3→4 -->
-              <div class="htl-seg"><div class="htl-seg-fill" id="htlS3"></div></div>
-
-              <!-- Node 4: Deliver -->
-              <div class="htl-item" id="htlN4">
-                <div class="htl-circ">
-                  <span class="htl-wlabel">W04</span>
-                  <svg class="htl-check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div class="htl-tip">
-                  <div class="htl-tip-wk">Week 04</div>
-                  <div class="htl-tip-ttl">Deliver</div>
-                  <div class="htl-tip-dsc">Hi-fi screens, visual design, AI-built interactive prototypes, dev handoff, stakeholder sign-off.</div>
-                </div>
-              </div>
-
-            </div>
+<!-- IMPACT -->
+<section id="impact" style="padding:0;background:none;border:none;">
+  <div style="background:var(--black);padding:80px 0;position:relative;overflow:hidden;" id="impactSection">
+    <!-- grid overlay -->
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(200,57,43,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,57,43,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;"></div>
+    <!-- full-section confetti canvas -->
+    <div id="impactConfettiWrap" style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="fade-up">
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#444;margin-bottom:48px;">This design helped achieve</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;border-top:1px solid #1e1e1e;">
+          <div style="padding:40px 0;">
+            <div style="font-family:var(--serif);font-size:clamp(52px,7vw,88px);line-height:1;color:var(--accent);margin-bottom:14px;letter-spacing:-0.02em;">230+</div>
+            <div style="font-size:13px;color:#555;line-height:1.65;max-width:200px;">datasets catalogued and discoverable in one place</div>
           </div>
-          <script>
-          (function(){
-            var map = {
-              htlN1: ['htlS1'],
-              htlN2: ['htlS1','htlS2'],
-              htlN3: ['htlS1','htlS2','htlS3'],
-              htlN4: ['htlS1','htlS2','htlS3']
-            };
-            Object.keys(map).forEach(function(nodeId){
-              var node = document.getElementById(nodeId);
-              if(!node) return;
-              node.addEventListener('mouseenter', function(){
-                map[nodeId].forEach(function(segId){
-                  var s = document.getElementById(segId);
-                  if(s) s.style.width = '100%';
-                });
-              });
-              node.addEventListener('mouseleave', function(){
-                map[nodeId].forEach(function(segId){
-                  var s = document.getElementById(segId);
-                  if(s) s.style.width = '0%';
-                });
-              });
-            });
-          })();
-          </script>
-
-          <div class="ai-link-row">check out how <a href="#ai"><em>AI</em> accelerated this process</a> &rarr;</div>
-
-          <div class="journey-cards">
-            <div class="journey-card">
-              <div class="journey-card-label">Using Claude and tool X to synthesise research insights with stakeholders and users.</div>
-              <div class="journey-card-media">
-                <input type="file" accept="image/*,video/*">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#aaa" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="#aaa"/><path d="M21 15l-5-5L5 21" stroke="#aaa" stroke-width="1.5"/></svg>
-              </div>
-            </div>
-            <div class="journey-card">
-              <div class="journey-card-label">Using Claude Code and Lovable to create AI mockups for faster iterations with stakeholders and users.</div>
-              <div class="journey-card-media">
-                <input type="file" accept="image/*,video/*">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#aaa" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="#aaa"/><path d="M21 15l-5-5L5 21" stroke="#aaa" stroke-width="1.5"/></svg>
-              </div>
-            </div>
+          <div style="padding:40px 0;">
+            <div style="font-family:var(--serif);font-size:clamp(36px,4.5vw,58px);line-height:1;color:var(--accent);margin-bottom:14px;letter-spacing:-0.02em;white-space:nowrap;">7d &rarr; 24h</div>
+            <div style="font-size:13px;color:#555;line-height:1.65;max-width:200px;">reduction in average access request turnaround time</div>
+          </div>
+          <div style="padding:40px 0;">
+            <div style="font-family:var(--serif);font-size:clamp(52px,7vw,88px);line-height:1;color:var(--accent);margin-bottom:14px;letter-spacing:-0.02em;">6+</div>
+            <div style="font-size:13px;color:#555;line-height:1.65;max-width:200px;">business functions onboarded across EMEA</div>
           </div>
         </div>
       </div>
-
-      <div class="scatter-section">
-        <div class="scatter-inner">
-          <div class="scatter-eyebrow">Discover</div>
-          <h2 class="scatter-heading">Unifying thousands of datasets into one searchable platform.</h2>
-          <p class="scatter-body">The team&rsquo;s current solution was finding data on SharePoint and Amazon Redshift. SharePoint made files hard to find and impossible to evaluate before opening. Redshift was powerful but locked out anyone without technical skills. Neither worked for most people.</p>
-
-          <div class="scatter-stage">
-            <div class="scatter-bg">
-              <input type="file" accept="image/*,video/*">
-              <div class="scatter-bg-hint">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#aaa" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="#aaa"/><path d="M21 15l-5-5L5 21" stroke="#aaa" stroke-width="1.5"/></svg>
-                <span>Add FigJam / research image</span>
-              </div>
-            </div>
-            <div class="scatter-cards">
-              <div class="scatter-card">
-                <div class="sc-num">#1</div>
-                <div class="sc-title">No clear path from &ldquo;I need data&rdquo; to &ldquo;I have data.&rdquo;</div>
-              </div>
-              <div class="scatter-card">
-                <div class="sc-num">#2</div>
-                <div class="sc-title">Finding a file meant clicking through folders blindly.</div>
-              </div>
-              <div class="scatter-card">
-                <div class="sc-num">#3</div>
-                <div class="sc-title">The search experience didn&rsquo;t match how people think.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
+</section>
 
 <!-- RESEARCH -->
 <section id="research">
@@ -952,13 +855,81 @@ footer a:hover{text-decoration:underline;}
     <div class="fade-up">
       <div class="eyebrow">Research</div>
       <h2>Understanding how people actually look for data.</h2>
-      <p>I spoke with stakeholders from the data governance and analytics teams. Rather than jumping to solutions, I wanted to understand the mental model &mdash; how do employees think when they&rsquo;re searching for a dataset?</p>
-      <ul class="research-goals">
-        <li>What&rsquo;s blocking people &mdash; is it access, discovery, or trust?</li>
-        <li>How do people actually search for data in practice?</li>
-        <li>What information do they need before requesting access?</li>
-      </ul>
 
+      <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:32px;max-width:620px;">I conducted interviews with 12 participants across two groups &mdash; data consumers and data owners &mdash; to understand the full picture of the problem from both sides.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0;">
+        <div style="padding:22px 24px;background:#fafaf8;border:1px solid var(--border);border-radius:10px;">
+          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">8 Data consumers</div>
+          <div style="font-size:13px;color:#555;line-height:1.75;">Analysts, managers and non-technical users across LSCM, Finance, and Sales &mdash; varied data literacy, shared frustration. <span style="font-weight:500;color:#111;">Focus:</span> where the discovery process broke down and what information they needed before requesting access to a dataset.</div>
+        </div>
+        <div style="padding:22px 24px;background:#fafaf8;border:1px solid var(--border);border-radius:10px;">
+          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">4 Data owners</div>
+          <div style="font-size:13px;color:#555;line-height:1.75;">Engineers and data stewards responsible for maintaining datasets in Redshift. <span style="font-weight:500;color:#111;">Focus:</span> the volume of ad-hoc requests they fielded weekly, and what a structured pipeline would need to look like for them to actually trust it.</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:32px;">
+        <div style="font-size:13px;font-weight:500;color:#111;margin-bottom:14px;">Research goals</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+            <div style="font-family:var(--serif);font-size:22px;color:#ddd;flex-shrink:0;line-height:1;padding-top:2px;">01</div>
+            <div style="font-size:14px;color:#444;line-height:1.7;">What is blocking people &mdash; is it finding data, accessing it, or trusting it once they have it?</div>
+          </div>
+          <div style="display:flex;gap:20px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
+            <div style="font-family:var(--serif);font-size:22px;color:#ddd;flex-shrink:0;line-height:1;padding-top:2px;">02</div>
+            <div style="font-size:14px;color:#444;line-height:1.7;">How do people actually search for data in practice &mdash; and how does that differ from how datasets are named?</div>
+          </div>
+          <div style="display:flex;gap:20px;padding:14px 0;align-items:flex-start;">
+            <div style="font-family:var(--serif);font-size:22px;color:#ddd;flex-shrink:0;line-height:1;padding-top:2px;">03</div>
+            <div style="font-size:14px;color:#444;line-height:1.7;">What information do users need before they feel confident enough to request access?</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Findings tabs -->
+      <div style="margin-bottom:40px;">
+        <div style="font-size:13px;font-weight:500;color:#111;margin-bottom:16px;">What we found</div>
+        <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+          <div style="display:flex;border-bottom:1px solid var(--border);background:#fafaf8;" id="findTabs">
+            <button class="find-tab active" data-tab="f1" style="flex:1;padding:12px 16px;font-size:12px;font-weight:500;color:#111;background:transparent;border:none;border-bottom:2px solid var(--black);cursor:pointer;font-family:inherit;">01 &mdash; No clear path</button>
+            <button class="find-tab" data-tab="f2" style="flex:1;padding:12px 16px;font-size:12px;color:#aaa;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;border-left:1px solid var(--border);">02 &mdash; Developer language</button>
+            <button class="find-tab" data-tab="f3" style="flex:1;padding:12px 16px;font-size:12px;color:#aaa;background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;border-left:1px solid var(--border);">03 &mdash; No way to evaluate</button>
+          </div>
+          <div id="f1" class="find-panel" style="padding:28px 32px;background:#fff;">
+            <h3 style="font-size:16px;font-weight:500;color:#111;margin-bottom:10px;">No clear path from &ldquo;I need data&rdquo; to &ldquo;I have data.&rdquo;</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;margin:0;">Teams had no structured way to discover, evaluate, and get access to the data they needed. The process involved chasing the right person, waiting days for a response, and still not being sure the file was correct when it arrived.</p>
+          </div>
+          <div id="f2" class="find-panel" style="padding:28px 32px;background:#fff;display:none;">
+            <h3 style="font-size:16px;font-weight:500;color:#111;margin-bottom:10px;">A tool built for developers, used by everyone.</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;margin:0;">Existing tools required users to know exact file names like <code style="font-size:12px;background:#f0f0ee;padding:1px 5px;border-radius:3px;">view__gold__str</code> &mdash; a naming convention built for engineers, not analysts. Nobody searched that way. The search model was built for the system, not the people using it.</p>
+          </div>
+          <div id="f3" class="find-panel" style="padding:28px 32px;background:#fff;display:none;">
+            <h3 style="font-size:16px;font-weight:500;color:#111;margin-bottom:10px;">No way to evaluate data before requesting access.</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;margin:0;">There was no metadata, no data quality score, no column definitions visible before requesting access. Users had to commit to a request just to find out if the dataset was even relevant to their work.</p>
+          </div>
+        </div>
+        <script>
+        document.querySelectorAll('.find-tab').forEach(function(tab){
+          tab.addEventListener('click', function(){
+            document.querySelectorAll('.find-tab').forEach(function(t){
+              t.style.color='#aaa'; t.style.borderBottomColor='transparent'; t.style.fontWeight='400';
+            });
+            tab.style.color='#111'; tab.style.borderBottomColor='var(--black)'; tab.style.fontWeight='500';
+            document.querySelectorAll('.find-panel').forEach(function(p){ p.style.display='none'; });
+            document.getElementById(tab.dataset.tab).style.display='block';
+          });
+        });
+        </script>
+      </div>
+
+      <!-- North Star -->
+      <div style="background:var(--black);border-radius:12px;padding:32px 36px;margin-bottom:48px;">
+        <div style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#444;margin-bottom:12px;">North Star</div>
+        <p style="font-family:var(--serif);font-size:20px;color:#fff;max-width:none;line-height:1.5;margin:0;font-style:italic;">Get the right information in front of users so they can independently decide whether what they&rsquo;re looking at is the right dataset for them &mdash; before they ever request access.</p>
+      </div>
+
+      <!-- Persona + Journey -->
       <div class="persona-journey-block fade-up" style="margin-top:40px;">
 
         <!-- PERSONA CARD — case study style -->
@@ -1125,98 +1096,6 @@ footer a:hover{text-decoration:underline;}
           </script>
         </div>
       </div>
-      <div class="north-star" style="margin-top:32px">
-        <div class="ns-label">North Star</div>
-        <p>Get the right information in front of users so they can independently decide whether what they&rsquo;re looking at is the right dataset for them.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<section id="problem">
-  <div class="container">
-    <div class="fade-up">
-      <div class="eyebrow">The Problem</div>
-      <h2>The data existed. Finding it was the problem.</h2>
-      <div class="pain-tabs" style="margin-top:40px;">
-        <div class="pain-tab active" data-panel="p1">01</div>
-        <div class="pain-tab" data-panel="p2">02</div>
-        <div class="pain-tab" data-panel="p3">03</div>
-      </div>
-      <div class="pain-panel active" id="p1">
-        <img src="pain1.jpg" alt="Pain point 01" style="width:100%;border-radius:8px;margin-bottom:20px;display:block;">
-        <h3>No clear path from &ldquo;I need data&rdquo; to &ldquo;I have data.&rdquo;</h3>
-        <p>Teams had no structured way to discover, evaluate, and get access to the data they needed. The process involved chasing the right person, waiting days for a response, and still not being sure the file was correct.</p>
-      </div>
-      <div class="pain-panel" id="p2">
-        <img src="pain2.jpg" alt="Pain point 02" style="width:100%;border-radius:8px;margin-bottom:20px;display:block;">
-        <h3>Finding a file meant clicking through folders blindly.</h3>
-        <p>There was no shared knowledge base, no documentation, no way to understand what a dataset contained before opening it. Users couldn&rsquo;t tell if what they found was relevant, reliable, or even the right file.</p>
-      </div>
-      <div class="pain-panel" id="p3">
-        <img src="pain3.jpg" alt="Pain point 03" style="width:100%;border-radius:8px;margin-bottom:20px;display:block;">
-        <h3>The search experience didn&rsquo;t match how people think.</h3>
-        <p>Existing tools required users to know exact file names. Nobody thinks that way. The search model was built for systems, not people.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SOLUTION -->
-<section id="solution">
-  <div class="container">
-    <div class="fade-up">
-      <div class="eyebrow">Solution Ideation</div>
-      <h2>Three things the platform needed to do well.</h2>
-
-      <div class="target-trio" style="margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);border-radius:16px;overflow:hidden;">
-        <div class="target-card" style="background:var(--off-white);padding:48px 32px;text-align:center;cursor:default;transition:background 0.3s,transform 0.3s;position:relative;overflow:hidden;" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
-          <div class="target-rings" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-            <div style="width:160px;height:160px;border-radius:50%;border:1px solid #e4e2de;position:absolute;transition:transform 0.4s,opacity 0.3s;opacity:0.4;"></div>
-            <div style="width:110px;height:110px;border-radius:50%;border:1px solid #d4d0c8;position:absolute;transition:transform 0.4s,opacity 0.3s;opacity:0.3;"></div>
-            <div style="width:60px;height:60px;border-radius:50%;background:#c8392b;position:absolute;transition:transform 0.4s,opacity 0.3s;opacity:0.15;"></div>
-          </div>
-          <div style="position:relative;z-index:1;">
-            <div style="font-family:var(--serif);font-size:64px;line-height:1;color:#e4e2de;margin-bottom:16px;transition:color 0.3s;">01</div>
-            <div class="target-title" style="font-size:16px;font-weight:500;color:#111;margin-bottom:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;">Discoverability</div>
-            <div class="target-sub" style="font-size:13px;color:var(--muted);line-height:1.6;opacity:0;transform:translateY(8px);transition:opacity 0.3s 0.06s,transform 0.3s 0.06s;">Search that works the way people think. Plain language, filters, trending datasets &mdash; find what you need without knowing the technical name.</div>
-          </div>
-        </div>
-        <div class="target-card" style="background:var(--off-white);padding:48px 32px;text-align:center;cursor:default;transition:background 0.3s,transform 0.3s;position:relative;overflow:hidden;border-left:1px solid var(--border);border-right:1px solid var(--border);" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
-          <div class="target-rings" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-            <div style="width:160px;height:160px;border-radius:50%;border:1px solid #e4e2de;position:absolute;opacity:0.4;"></div>
-            <div style="width:110px;height:110px;border-radius:50%;border:1px solid #d4d0c8;position:absolute;opacity:0.3;"></div>
-            <div style="width:60px;height:60px;border-radius:50%;background:#c8392b;position:absolute;opacity:0.15;"></div>
-          </div>
-          <div style="position:relative;z-index:1;">
-            <div style="font-family:var(--serif);font-size:64px;line-height:1;color:#e4e2de;margin-bottom:16px;transition:color 0.3s;">02</div>
-            <div class="target-title" style="font-size:16px;font-weight:500;color:#111;margin-bottom:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;">Context</div>
-            <div class="target-sub" style="font-size:13px;color:var(--muted);line-height:1.6;opacity:0;transform:translateY(8px);transition:opacity 0.3s 0.06s,transform 0.3s 0.06s;">Each dataset surfaces what users actually need &mdash; owner, quality score, last refreshed, column glossary &mdash; so they can decide before ever requesting access.</div>
-          </div>
-        </div>
-        <div class="target-card" style="background:var(--off-white);padding:48px 32px;text-align:center;cursor:default;transition:background 0.3s,transform 0.3s;position:relative;overflow:hidden;" onmouseenter="this.classList.add('hovered')" onmouseleave="this.classList.remove('hovered')">
-          <div class="target-rings" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-            <div style="width:160px;height:160px;border-radius:50%;border:1px solid #e4e2de;position:absolute;opacity:0.4;"></div>
-            <div style="width:110px;height:110px;border-radius:50%;border:1px solid #d4d0c8;position:absolute;opacity:0.3;"></div>
-            <div style="width:60px;height:60px;border-radius:50%;background:#c8392b;position:absolute;opacity:0.15;"></div>
-          </div>
-          <div style="position:relative;z-index:1;">
-            <div style="font-family:var(--serif);font-size:64px;line-height:1;color:#e4e2de;margin-bottom:16px;transition:color 0.3s;">03</div>
-            <div class="target-title" style="font-size:16px;font-weight:500;color:#111;margin-bottom:8px;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;">Access</div>
-            <div class="target-sub" style="font-size:13px;color:var(--muted);line-height:1.6;opacity:0;transform:translateY(8px);transition:opacity 0.3s 0.06s,transform 0.3s 0.06s;">Instead of email and ServiceNow, request access directly in-app &mdash; with a defined approval chain, priority tiers, and real-time status updates.</div>
-          </div>
-        </div>
-      </div>
-
-      <style>
-        .target-card.hovered { background: #fff !important; transform: translateY(-4px); }
-        .target-card.hovered .target-title { opacity: 1 !important; transform: translateY(0) !important; }
-        .target-card.hovered .target-sub { opacity: 1 !important; transform: translateY(0) !important; }
-        .target-card.hovered div[style*="font-size:64px"] { color: var(--accent) !important; }
-        .target-card.hovered div[style*="width:60px"] { opacity: 0.3 !important; }
-      </style>
-      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:16px;">Hover each pillar to explore</p>
     </div>
   </div>
 </section>
@@ -1225,327 +1104,65 @@ footer a:hover{text-decoration:underline;}
 <section id="decisions">
   <div class="container">
     <div class="fade-up">
-      <div class="eyebrow">Design Decisions</div>
-      <h2>What I thought hard about.</h2>
 
-      <!-- ── DECISION 01: Access Request Pipeline ── -->
-      <div style="margin-top:48px;padding-top:48px;border-top:1px solid var(--border);">
+      <!-- DD01: Discoverability -->
+      <div style="padding-bottom:64px;margin-bottom:64px;border-bottom:1px solid var(--border);">
         <div class="eyebrow" style="color:var(--accent);">Design decision 01</div>
-        <h3 style="font-size:22px;margin-bottom:16px;">Integrating the access request pipeline inside the app</h3>
-
-        <!-- FULL-WIDTH PROTOTYPE -->
-        <div class="proto-wrap dd01">
-          <div class="interactive-badge"><span class="badge-star">&#10024;</span> Interactive</div>
-          <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-  .screen { background: #f5f5f3; border: 0.5px solid #e0e0de; border-radius: 12px; overflow: hidden; position: relative; min-height: 560px; }
-  .card-view { padding: 20px; }
-  .ds-header { background: #fff; border-radius: 10px; border: 0.5px solid #e8e8e6; padding: 18px 20px 0; margin-bottom: 12px; }
-  .ds-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-  .ds-title { font-size: 16px; font-weight: 500; color: #111; }
-  .star-row { display: flex; align-items: center; gap: 3px; margin-left: 8px; }
-  .star { color: #f59e0b; font-size: 12px; }
-  .star-score { font-size: 11px; color: #111; font-weight: 500; }
-  .star-count { font-size: 11px; color: #aaa; }
-  .ds-slug { font-size: 10px; color: #bbb; font-family: monospace; margin-bottom: 12px; }
-  .tabs { display: flex; border-top: 0.5px solid #f0f0ee; }
-  .tab { font-size: 11px; color: #aaa; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
-  .tab.active { color: #111; border-bottom-color: #111; }
-  .meta-section { background: #fff; border-radius: 10px; border: 0.5px solid #e8e8e6; padding: 16px 20px; }
-  .meta-row { display: flex; gap: 32px; margin-bottom: 14px; }
-  .meta-item label { font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 3px; }
-  .meta-item span { font-size: 12px; color: #333; }
-  .tag { font-size: 10px; color: #555; background: #f5f5f3; border: 0.5px solid #e0e0de; border-radius: 20px; padding: 2px 8px; }
-  .classif-chip { font-size: 10px; color: #555; border: 0.5px solid #d0d0ce; border-radius: 20px; padding: 2px 8px; }
-  .divider { border: none; border-top: 0.5px solid #f0f0ee; margin: 12px 0; }
-  .desc-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-  .desc-list li { font-size: 11px; color: #555; line-height: 1.6; padding-left: 14px; position: relative; }
-  .desc-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 4px; height: 4px; background: #ddd; border-radius: 50%; }
-  .access-banner { background: #fff8f0; border: 0.5px solid #fed7aa; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
-  .banner-left { display: flex; align-items: center; gap: 10px; }
-  .lock-icon { width: 32px; height: 32px; background: #fff; border: 0.5px solid #fed7aa; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .banner-text strong { font-size: 12px; color: #333; display: block; margin-bottom: 2px; }
-  .banner-text span { font-size: 11px; color: #888; }
-  .req-access-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #e8e8e6 !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 8px 18px !important; cursor: pointer !important; white-space: nowrap !important; flex-shrink: 0 !important; }
-  .req-access-btn:hover { background-color: #dcdcda !important; }
-  .overlay { position: absolute; inset: 0; background: rgba(245,245,243,0.75); backdrop-filter: blur(3px); display: flex; align-items: flex-start; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 20; overflow-y: auto; }
-  .overlay.open { opacity: 1; pointer-events: all; }
-  .form-panel { background: #fff; border: 0.5px solid #d0d0ce; border-radius: 12px; width: 100%; max-width: 520px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-6px); transition: transform 0.2s; overflow: hidden; }
-  .overlay.open .form-panel { transform: translateY(0); }
-  .form-header { padding: 16px 20px; border-bottom: 0.5px solid #f0f0ee; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-  .form-header-left h2 { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 2px; }
-  .form-header-left p { font-size: 11px; color: #aaa; }
-  .dataset-pill { display: flex; align-items: center; gap: 6px; background: #f5f5f3; border: 0.5px solid #e0e0de; border-radius: 6px; padding: 5px 10px; margin-top: 8px; }
-  .dataset-pill span { font-size: 11px; color: #555; font-weight: 500; }
-  .close-btn { width: 24px; height: 24px; border: 0.5px solid #e0e0de; border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #aaa; font-size: 14px; line-height: 1; }
-  .close-btn:hover { background: #f5f5f3; }
-  .priority-section { padding: 14px 20px; border-bottom: 0.5px solid #f0f0ee; }
-  .priority-label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
-  .priority-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-  .p-card { border: 0.5px solid #e8e8e6; border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: all 0.15s; background: #fafafa; }
-  .p-card:hover { border-color: #ccc; background: #f5f5f3; }
-  .p-card.selected { background: #fff; border-width: 1.5px; }
-  .p-card.urgent.selected { border-color: #ef4444; }
-  .p-card.semi.selected { border-color: #f59e0b; }
-  .p-card.normal.selected { border-color: #22c55e; }
-  .p-dot { width: 7px; height: 7px; border-radius: 50%; margin-bottom: 6px; }
-  .p-dot.urgent { background: #ef4444; }
-  .p-dot.semi { background: #f59e0b; }
-  .p-dot.normal { background: #22c55e; }
-  .p-name { font-size: 12px; font-weight: 500; color: #333; margin-bottom: 2px; }
-  .p-time { font-size: 10px; color: #aaa; line-height: 1.4; }
-  .p-card.urgent.selected .p-name { color: #ef4444; }
-  .p-card.semi.selected .p-name { color: #f59e0b; }
-  .p-card.normal.selected .p-name { color: #22c55e; }
-  .form-fields { padding: 14px 20px; display: flex; flex-direction: column; gap: 10px; border-bottom: 0.5px solid #f0f0ee; }
-  .field { display: flex; flex-direction: column; gap: 4px; }
-  .field label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; }
-  .field input, .field textarea { font-size: 12px; color: #333; background: #fafafa; border: 0.5px solid #e0e0de; border-radius: 6px; padding: 8px 10px; font-family: inherit; outline: none; transition: border-color 0.15s; }
-  .field input:focus, .field textarea:focus { border-color: #aaa; background: #fff; }
-  .field textarea { resize: none; min-height: 64px; line-height: 1.5; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .field-note { font-size: 10px; color: #f59e0b; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
-  .field-note-dot { width: 5px; height: 5px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
-  .approval-section { padding: 14px 20px; border-bottom: 0.5px solid #f0f0ee; }
-  .approval-label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-  .approval-chain { display: flex; align-items: center; }
-  .a-step { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-  .a-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
-  .a-avatar.you { background: #f0f0ee; color: #666; }
-  .a-avatar.mgr { background: #e8f4fd; color: #3b82f6; }
-  .a-avatar.owner { background: #e8f4ed; color: #22c55e; }
-  .a-name { font-size: 10px; color: #555; text-align: center; }
-  .a-role { font-size: 9px; color: #bbb; text-align: center; }
-  .a-arrow { flex: 0.4; display: flex; align-items: center; justify-content: center; padding-bottom: 18px; }
-  .notify-section { padding: 12px 20px; border-bottom: 0.5px solid #f0f0ee; display: flex; align-items: center; justify-content: space-between; }
-  .notify-text strong { font-size: 12px; color: #333; display: block; }
-  .notify-text span { font-size: 11px; color: #aaa; }
-  .toggle { width: 36px; height: 20px; border-radius: 20px; background: #e0e0de; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
-  .toggle.on { background: #111; }
-  .toggle-knob { width: 16px; height: 16px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
-  .toggle.on .toggle-knob { left: 18px; }
-  .form-footer { padding: 14px 20px; display: flex; align-items: center; justify-content: flex-end; gap: 8px; background: #fafafa; border-top: 0.5px solid #f0f0ee; }
-  .cancel-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #ffffff !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 9px 20px !important; cursor: pointer !important; }
-  .cancel-btn:hover { background-color: #f5f5f3 !important; }
-  .submit-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #e8e8e6 !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 9px 24px !important; cursor: pointer !important; }
-  .submit-btn:hover { background-color: #dcdcda !important; }
-  .success-panel { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; text-align: center; min-height: 300px; }
-  .success-panel.show { display: flex; }
-  .success-icon { width: 48px; height: 48px; background: #f0fdf4; border: 0.5px solid #bbf7d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-  .success-panel h3 { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 6px; }
-  .success-panel p { font-size: 12px; color: #aaa; line-height: 1.6; max-width: 320px; }
-  .success-meta { display: flex; gap: 20px; margin-top: 16px; }
-  .s-meta-item { text-align: center; }
-  .s-meta-item label { font-size: 10px; color: #bbb; display: block; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.08em; }
-  .s-meta-item span { font-size: 12px; color: #333; font-weight: 500; }
-  .done-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #ffffff !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 9px 20px !important; cursor: pointer !important; margin-top: 20px !important; }
-  .done-btn:hover { background-color: #f5f5f3 !important; }
-</style>
-
-<div style="padding:1rem 0;">
-<div class="screen">
-  <div class="card-view">
-    <div class="ds-header">
-      <div class="ds-title-row">
-        <span class="ds-title">IPC Sourcing</span>
-        <div class="star-row"><span class="star">&#9733;</span><span class="star-score">4.5</span><span class="star-count">(25)</span></div>
-      </div>
-      <div class="ds-slug">view__gold__sourcing</div>
-      <div class="tabs"><div class="tab active">Overview</div><div class="tab">Sample set view</div><div class="tab">Glossaries</div><div class="tab">Comments</div></div>
-    </div>
-    <div class="meta-section">
-      <div class="meta-row">
-        <div class="meta-item"><label>Data Owner</label><span>BOEHLEN Michael</span></div>
-        <div class="meta-item"><label>Domain</label><span>LSCM</span></div>
-        <div class="meta-item"><label>Tags</label><span class="tag">IPC</span> <span class="tag">Sourcing</span></div>
-        <div class="meta-item"><label>Classification</label><span class="classif-chip">Data Sensitivity</span> <span class="classif-chip">Layer Gold</span></div>
-      </div>
-      <hr class="divider">
-      <ul class="desc-list">
-        <li>Overview of all sources from which an IPC can be supplied or produced.</li>
-        <li>Used by LSCM teams to evaluate supplier coverage and sourcing strategy.</li>
-        <li>Refreshed every Monday morning from OMP system.</li>
-      </ul>
-    </div>
-    <div class="access-banner">
-      <div class="banner-left">
-        <div class="lock-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="6" width="8" height="6" rx="1" stroke="#f97316" stroke-width="1.2"/><path d="M5 6V4.5a2 2 0 114 0V6" stroke="#f97316" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-        <div class="banner-text">
-          <strong>You don&#39;t have access to this dataset</strong>
-          <span>This dataset is outside your domain. Submit a request and your manager will be notified.</span>
-        </div>
-      </div>
-      <button class="req-access-btn" id="rfBtn">Request access</button>
-    </div>
-  </div>
-
-  <div class="overlay" id="rfOverlay">
-    <div class="form-panel" id="rfForm">
-      <div class="form-header">
-        <div class="form-header-left">
-          <h2>Raise a data access request</h2>
-          <p>Your request will be reviewed by your manager and the dataset owner.</p>
-          <div class="dataset-pill">
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="2" rx="0.5" fill="#888"/><rect x="2" y="7" width="10" height="2" rx="0.5" fill="#888"/><rect x="2" y="11" width="6" height="2" rx="0.5" fill="#888"/></svg>
-            <span>IPC Sourcing &middot; view__gold__sourcing</span>
-          </div>
-        </div>
-        <div class="close-btn" id="rfClose">&#x2715;</div>
-      </div>
-
-      <div class="priority-section">
-        <div class="priority-label">How urgent is this request?</div>
-        <div class="priority-grid">
-          <div class="p-card urgent" data-p="urgent"><div class="p-dot urgent"></div><div class="p-name">Urgent</div><div class="p-time">Response within 30 mins. If unresolved, admin is automatically notified.</div></div>
-          <div class="p-card semi selected" data-p="semi"><div class="p-dot semi"></div><div class="p-name">Semi-urgent</div><div class="p-time">Approval expected within 24 hours.</div></div>
-          <div class="p-card normal" data-p="normal"><div class="p-dot normal"></div><div class="p-name">Not urgent</div><div class="p-time">Approval expected within 48 hours.</div></div>
-        </div>
-      </div>
-
-      <div class="form-fields">
-        <div class="two-col">
-          <div class="field"><label>Requester name</label><input type="text" value="Pooja NS" /></div>
-          <div class="field"><label>Email ID</label><input type="text" value="pooja.suresh.ns@gmail.com" /></div>
-        </div>
-        <div class="two-col">
-          <div class="field"><label>Team</label><input type="text" placeholder="e.g. Sales Analytics" /></div>
-          <div class="field">
-            <label>Manager</label>
-            <input type="text" placeholder="Manager name" />
-            <div class="field-note"><div class="field-note-dot"></div>Your manager will be notified of this request</div>
-          </div>
-        </div>
-        <div class="field"><label>Reason for request</label><textarea placeholder="Briefly describe why you need access and how you plan to use it..."></textarea></div>
-      </div>
-
-      <div class="approval-section">
-        <div class="approval-label">Approval chain</div>
-        <div class="approval-chain">
-          <div class="a-step"><div class="a-avatar you">PN</div><div class="a-name">You</div><div class="a-role">Requester</div></div>
-          <div class="a-arrow"><svg viewBox="0 0 20 10" fill="none" width="20" height="10"><path d="M0 5h16M13 2l4 3-4 3" stroke="#ddd" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="a-step"><div class="a-avatar mgr">MG</div><div class="a-name">Your Manager</div><div class="a-role">Step 1 approval</div></div>
-          <div class="a-arrow"><svg viewBox="0 0 20 10" fill="none" width="20" height="10"><path d="M0 5h16M13 2l4 3-4 3" stroke="#ddd" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="a-step"><div class="a-avatar owner">BM</div><div class="a-name">BOEHLEN Michael</div><div class="a-role">Dataset owner</div></div>
-        </div>
-      </div>
-
-      <div class="notify-section">
-        <div class="notify-text">
-          <strong>Notify me when status changes</strong>
-          <span>Get an email update when your request is approved or rejected</span>
-        </div>
-        <div class="toggle on" id="rfToggle"><div class="toggle-knob"></div></div>
-      </div>
-
-      <div class="form-footer">
-        <button class="cancel-btn" id="rfCancel">Cancel</button>
-        <button class="submit-btn" id="rfSubmit">Submit request</button>
-      </div>
-    </div>
-
-    <div class="form-panel" id="rfSuccess" style="display:none;">
-      <div class="success-panel show">
-        <div class="success-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Request submitted</h3>
-        <p>Your access request for <strong>IPC Sourcing</strong> has been sent. Your manager and the dataset owner will be notified.</p>
-        <div class="success-meta">
-          <div class="s-meta-item"><label>Priority</label><span id="rfPriority">Semi-urgent</span></div>
-          <div class="s-meta-item"><label>Expected response</label><span id="rfTime">Within 24 hours</span></div>
-          <div class="s-meta-item"><label>Ticket ID</label><span>#DAR-2847</span></div>
-        </div>
-        <button class="done-btn" id="rfDone">Back to dataset</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div style="font-size:12px;color:#aaa;margin-top:8px;text-align:center;">Click "Request access" &middot; Select priority &middot; Submit</div>
-</div>
-
-<script>
-  const rfOv = document.getElementById('rfOverlay');
-  const rfFp = document.getElementById('rfForm');
-  const rfSp = document.getElementById('rfSuccess');
-  function rfOpen() { rfOv.classList.add('open'); }
-  function rfClose() { rfOv.classList.remove('open'); setTimeout(() => { rfFp.style.display=''; rfSp.style.display='none'; }, 250); }
-  document.getElementById('rfBtn').addEventListener('click', rfOpen);
-  document.getElementById('rfClose').addEventListener('click', rfClose);
-  document.getElementById('rfCancel').addEventListener('click', rfClose);
-  document.getElementById('rfDone').addEventListener('click', rfClose);
-  rfOv.addEventListener('click', e => { if(e.target===rfOv) rfClose(); });
-  let selectedPriority = 'semi';
-  const priorityMeta = { urgent:{label:'Urgent',time:'Within 30 minutes'}, semi:{label:'Semi-urgent',time:'Within 24 hours'}, normal:{label:'Not urgent',time:'Within 48 hours'} };
-  document.querySelectorAll('.p-card').forEach(card => {
-    card.addEventListener('click', () => { document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('selected')); card.classList.add('selected'); selectedPriority=card.dataset.p; });
-  });
-  document.getElementById('rfToggle').addEventListener('click', function(){ this.classList.toggle('on'); });
-  document.getElementById('rfSubmit').addEventListener('click', () => {
-    const p = priorityMeta[selectedPriority];
-    document.getElementById('rfPriority').textContent = p.label;
-    document.getElementById('rfTime').textContent = p.time;
-    rfFp.style.display='none'; rfSp.style.display='';
-  });
-</script>
-            </div>
-        </div>
-
-        <!-- TEXT BELOW -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+        <h3 style="font-size:22px;margin-bottom:16px;">One search bar wasn&rsquo;t enough.</h3>
+        <!-- 2-col: narrative + insight -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:32px;">
           <div>
-            <p style="font-size:15px;color:#444;line-height:1.8;">The data governance team pushed back on this. Their concern was real &mdash; owning the request workflow inside the platform meant taking on more process, more roles, and more documentation burden. They were used to ServiceNow and email. That's where access requests lived, and they weren't eager to change that.</p>
-            <p style="font-size:15px;color:#444;line-height:1.8;">My goal was two-fold: reduce the steps from &ldquo;I need this dataset&rdquo; to &ldquo;I have access&rdquo;, and eliminate the context switching that was killing the experience. Every time someone left the app to file a ticket or send an email, they lost momentum &mdash; and often just gave up.</p>
-            <div style="margin-top:24px;padding:20px 24px;background:#f2f0ec;border-radius:10px;border-left:3px solid var(--accent);">
-              <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">What moved the conversation</div>
-              <p style="font-size:14px;color:#333;margin:0;line-height:1.7;">I mapped both journeys side by side &mdash; 11 steps outside the app vs 5 steps inside. The step count difference was stark. I didn&rsquo;t win the argument with principles. I won it with the data.</p>
-            </div>
+            <p style="font-size:15px;color:#444;line-height:1.8;">Early iterations gave everyone the same search experience &mdash; a single bar, a single set of filters, visible all at once. Testing revealed two completely different users arriving with completely different intent.</p>
+            <p style="font-size:15px;color:#444;line-height:1.8;">Technical users found it manageable. Everyone else found it overwhelming &mdash; too many choices before they&rsquo;d even typed anything.</p>
           </div>
           <div>
-            <div style="margin-bottom:24px;">
-              <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">This design prioritises</div>
-              <div style="font-size:14px;color:#444;line-height:1.7;">User autonomy &middot; Zero context switching &middot; Structured approval with real-time visibility &middot; Accountability through a defined chain</div>
-            </div>
-            <div style="padding:20px 24px;border:1.5px solid var(--accent);border-radius:10px;background:#fdf9f9;">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div>
-                <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:500;">The tradeoff</div>
-              </div>
-              <div style="font-size:14px;color:#333;line-height:1.7;">The governance team had to own a new workflow inside the product &mdash; a real operational ask they hadn&rsquo;t planned for. I had to make that case repeatedly, with evidence, not just UX principles.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── DECISION 02: Search modes ── -->
-      <div style="margin-top:64px;padding-top:48px;border-top:1px solid var(--border);">
-        <div class="eyebrow" style="color:var(--accent);">Design decision 02</div>
-        <h3 style="font-size:22px;margin-bottom:16px;">Splitting search into two distinct modes</h3>
-
-        <!-- Narrative text — two col -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:36px;">
-          <div>
-            <p style="font-size:15px;color:#444;line-height:1.8;">Early iterations of the search panel included domain filters, type filters, and keyword search all visible at once. My instinct was that more options meant more power. But testing told me something different.</p>
-            <p style="font-size:15px;color:#444;line-height:1.8;">Technical users found it manageable. Everyone else found it overwhelming &mdash; too many choices before they&rsquo;d even typed anything. The interface was signalling &ldquo;this is complicated&rdquo; before users had a chance to discover it wasn&rsquo;t.</p>
-          </div>
-          <div>
-            <div style="padding:20px 24px;background:#f2f0ec;border-radius:10px;border-left:3px solid var(--accent);margin-bottom:16px;">
+            <div style="padding:20px 24px;background:#f2f0ec;border-radius:10px;border-left:3px solid var(--accent);">
               <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">The insight</div>
-              <p style="font-size:14px;color:#333;margin:0;line-height:1.7;">Users weren&rsquo;t all arriving with the same intent. Some were browsing. Some knew exactly what they wanted. The fix wasn&rsquo;t removing features &mdash; it was letting users self-select the mode that matched their confidence.</p>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div style="padding:14px 16px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;">
-                <div style="font-size:11px;font-weight:500;color:#111;margin-bottom:4px;">Exploring</div>
-                <div style="font-size:12px;color:var(--muted);line-height:1.5;">Domain-first browse. Pick a category, then scan. No text input required.</div>
-              </div>
-              <div style="padding:14px 16px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;">
-                <div style="font-size:11px;font-weight:500;color:#111;margin-bottom:4px;">I know what I want</div>
-                <div style="font-size:12px;color:var(--muted);line-height:1.5;">Type-ahead search with instant card results.</div>
-              </div>
+              <p style="font-size:14px;color:#333;margin:0;line-height:1.7;">Users weren&rsquo;t arriving with the same intent. Some were browsing without a clear goal. Others knew exactly what they wanted. Designing one experience for both meant serving neither well.</p>
             </div>
           </div>
         </div>
 
-        <!-- Full-width prototype -->
-        <div class="proto-wrap dd02" style="overflow:hidden;">
+        <!-- Full-width mode tabs -->
+        <style>
+        .mode-tabs { display:flex; gap:0; border:1px solid var(--border); border-radius:10px 10px 0 0; overflow:hidden; }
+        .mode-tab { flex:1; padding:14px 20px; font-size:13px; font-weight:500; color:#aaa; background:#f9f8f6; border:none; cursor:pointer; font-family:inherit; transition:background 0.2s,color 0.2s; border-bottom:2px solid transparent; }
+        .mode-tab.mt-active { color:var(--black); background:#fff; border-bottom-color:var(--black); }
+        .mode-tab:first-child { border-right:1px solid var(--border); }
+        .mode-panel { display:none; padding:24px 28px; border:1px solid var(--border); border-top:none; border-radius:0 0 10px 10px; background:#fff; }
+        .mode-panel.mp-active { display:block; }
+        </style>
+        <div style="margin-bottom:36px;">
+          <div class="mode-tabs">
+            <button class="mode-tab mt-active" onclick="switchMode('m1',this)">Exploring</button>
+            <button class="mode-tab" onclick="switchMode('m2',this)">I know what I want</button>
+          </div>
+          <div id="m1" class="mode-panel mp-active">
+            <p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:20px;max-width:none;">Domain-first browse. Pick a business function or team, then scan what&rsquo;s available by asset type. No search query required &mdash; designed for users who don&rsquo;t know exactly what they&rsquo;re looking for.</p>
+            <div style="width:100%;height:240px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;position:relative;overflow:hidden;">
+              <input type="file" accept="video/*,image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+              <span style="opacity:0.6;">Add Exploring flow video</span>
+            </div>
+          </div>
+          <div id="m2" class="mode-panel">
+            <p style="font-size:14px;color:#555;line-height:1.75;margin-bottom:20px;max-width:none;">Type-ahead search with instant card results. Filter by domain, asset type (dataset, report, KPI), or certification status. For users who already know what they&rsquo;re looking for and need to find it fast.</p>
+            <div style="width:100%;height:240px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;position:relative;overflow:hidden;">
+              <input type="file" accept="video/*,image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+              <span style="opacity:0.6;">Add &ldquo;I know what I want&rdquo; flow video</span>
+            </div>
+          </div>
+          <script>
+          function switchMode(id, btn){
+            document.querySelectorAll('.mode-tab').forEach(function(t){t.classList.remove('mt-active');});
+            document.querySelectorAll('.mode-panel').forEach(function(p){p.classList.remove('mp-active');});
+            btn.classList.add('mt-active');
+            document.getElementById(id).classList.add('mp-active');
+          }
+          </script>
+        </div>
+        <div class="proto-wrap dd01" style="overflow:hidden;">
           <div class="interactive-badge"><span class="badge-star">&#10024;</span> Interactive</div>
             <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1783,39 +1400,33 @@ document.querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{d
           </div>
       </div>
 
-      <!-- ── DECISION 03: Dataset Card ── -->
-      <div style="margin-top:64px;padding-top:48px;border-top:1px solid var(--border);">
-        <div class="eyebrow" style="color:var(--accent);">Design decision 03</div>
-        <h3 style="font-size:22px;margin-bottom:16px;">The anatomy of a dataset card</h3>
+      <!-- DD02: Context -->
+      <div style="padding-bottom:64px;margin-bottom:64px;border-bottom:1px solid var(--border);">
+        <div class="eyebrow" style="color:var(--accent);">Design decision 02</div>
+        <h3 style="font-size:22px;margin-bottom:16px;">How much do you show before someone clicks?</h3>
+        <p style="font-size:15px;color:#444;line-height:1.8;max-width:680px;margin-bottom:36px;">Everything a user needs to decide if a dataset is worth requesting &mdash; without having to request it first. I split this into two separate design problems.</p>
 
-        <!-- Two-col narrative -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:36px;">
-          <div>
-            <p style="font-size:15px;color:#444;line-height:1.8;">Users might scan through dozens of cards looking for the right dataset. Every element on that card had to earn its place. Too much and it becomes noise. Too little and they can&rsquo;t make a decision.</p>
-            <p style="font-size:15px;color:#444;line-height:1.8;">I landed on a progressive disclosure model. The card surface shows just enough to evaluate relevance at a glance &mdash; human-readable name, technical slug, domain, owner, certification badge, data quality rating, and last refresh date. Clicking opens a full detail view.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:36px;">
+          <div style="padding:24px;border:1px solid var(--border);border-radius:10px;background:#fafaf8;">
+            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Point 01 &mdash; The card and what it reveals</div>
+            <p style="font-size:13px;color:#555;line-height:1.75;margin-bottom:16px;">The card surface shows just enough to evaluate relevance at a glance: human-readable name, technical slug, domain, owner, certification badge, and last refresh date. Clicking opens a full detail view with four tabs &mdash; Overview, Sample set, Glossaries, and Comments &mdash; so users can go as deep as they need before deciding.</p>
+            <div style="width:100%;height:160px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add card design image</span>
+</div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-              <div style="display:flex;gap:14px;padding:12px 16px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;align-items:flex-start;">
-                <div style="width:26px;height:26px;border-radius:6px;background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="2" rx="0.5" fill="#fff"/><rect x="2" y="6" width="10" height="2" rx="0.5" fill="#fff"/><rect x="2" y="10" width="6" height="2" rx="0.5" fill="#fff"/></svg></div>
-                <div><div style="font-size:12px;font-weight:500;color:#111;margin-bottom:1px;">Overview</div><div style="font-size:12px;color:var(--muted);line-height:1.4;">Owner, domain, tags, classification, data quality gauges.</div></div>
-              </div>
-              <div style="display:flex;gap:14px;padding:12px 16px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;align-items:flex-start;">
-                <div style="width:26px;height:26px;border-radius:6px;background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1" stroke="#fff" stroke-width="1"/><line x1="1" y1="6" x2="13" y2="6" stroke="#fff" stroke-width="0.8"/><line x1="5" y1="3" x2="5" y2="11" stroke="#fff" stroke-width="0.8"/></svg></div>
-                <div><div style="font-size:12px;font-weight:500;color:#111;margin-bottom:1px;">Sample set view</div><div style="font-size:12px;color:var(--muted);line-height:1.4;">Live preview of actual data rows. Verify before requesting access.</div></div>
-              </div>
-              <div style="display:flex;gap:14px;padding:12px 16px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;align-items:flex-start;">
-                <div style="width:26px;height:26px;border-radius:6px;background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 4h10M2 7h6M2 10h8" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-                <div><div style="font-size:12px;font-weight:500;color:#111;margin-bottom:1px;">Glossaries</div><div style="font-size:12px;color:var(--muted);line-height:1.4;">Column definitions, sensitivity flags, and business terms.</div></div>
-              </div>
-              <div style="display:flex;gap:14px;padding:12px 16px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;align-items:flex-start;">
-                <div style="width:26px;height:26px;border-radius:6px;background:#111;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 10V4a1 1 0 011-1h8a1 1 0 011 1v4a1 1 0 01-1 1H5l-3 2z" stroke="#fff" stroke-width="1.1" stroke-linejoin="round"/></svg></div>
-                <div><div style="font-size:12px;font-weight:500;color:#111;margin-bottom:1px;">Comments</div><div style="font-size:12px;color:var(--muted);line-height:1.4;">@mentions, threading, reactions. Institutional knowledge, surfaced.</div></div>
-              </div>
+          <div style="padding:24px;border:1px solid var(--border);border-radius:10px;background:#fafaf8;">
+            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Point 02 &mdash; Trust and confidence signals</div>
+            <p style="font-size:13px;color:#555;line-height:1.75;margin-bottom:16px;">The information that actually builds trust isn&rsquo;t the description. It&rsquo;s the data quality scores (accuracy, completeness, correctness, credibility, consistency), comments from teammates who&rsquo;ve used it, the rating, who&rsquo;s downloaded it, and when it was last refreshed. These live in the Overview tab &mdash; impossible to miss.</p>
+            <div style="width:100%;height:160px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add quality/trust signals image</span>
+</div>
           </div>
         </div>
-
-        <!-- Full-width prototype -->
-        <div class="proto-wrap dd03" style="overflow:hidden;">
+        <div class="proto-wrap dd02" style="overflow:hidden;">
           <div class="interactive-badge"><span class="badge-star">&#10024;</span> Interactive</div>
           <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -2199,114 +1810,356 @@ document.querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{d
         </div>
       </div>
 
+      <!-- DD03: Access -->
+      <div style="padding-bottom:64px;margin-bottom:64px;border-bottom:1px solid var(--border);">
+        <div class="eyebrow" style="color:var(--accent);">Design decision 03</div>
+        <h3 style="font-size:22px;margin-bottom:16px;">Transparency, speed, and a clear process.</h3>
+        <div style="margin-bottom:36px;">
+          <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:32px;max-width:none;">Users needed to know who was reviewing their request, how urgent it was, and when to expect a response. The existing process gave them none of that.</p>
+
+            <style>
+            .img-stack { position:relative; height:420px; display:flex; align-items:center; justify-content:center; }
+            .stack-img { position:absolute; border-radius:14px; overflow:hidden; border:1px solid var(--border); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), filter 0.35s, box-shadow 0.35s; cursor:pointer; }
+            .stack-img input[type="file"] { position:absolute;inset:0;opacity:0;cursor:pointer;z-index:3; }
+            .stack-img-inner { width:100%;height:100%;background:#eeece8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px; }
+            .stack-img-inner svg { opacity:0.4; }
+            .stack-img-inner span { opacity:0.6; }
+            .stack-wide { width:520px; height:320px; transform:rotate(-3deg) translate(-40px, 16px); z-index:1; }
+            .stack-sq   { width:300px; height:300px; transform:rotate(4deg) translate(120px, -24px); z-index:2; }
+            .img-stack:hover .stack-wide { filter:blur(0px); box-shadow:0 8px 32px rgba(0,0,0,0.10); }
+            .img-stack:hover .stack-sq   { filter:blur(0px); }
+            .stack-wide:hover { transform:rotate(-1deg) translate(-40px,16px) scale(1.04) !important; filter:blur(0) !important; box-shadow:0 20px 56px rgba(0,0,0,0.18) !important; z-index:10 !important; }
+            .stack-wide:hover ~ .stack-sq { filter:blur(3px) !important; }
+            .stack-sq:hover   { transform:rotate(2deg) translate(120px,-24px) scale(1.06) !important; filter:blur(0) !important; box-shadow:0 20px 56px rgba(0,0,0,0.18) !important; z-index:10 !important; }
+            .img-stack:has(.stack-sq:hover) .stack-wide { filter:blur(3px); }
+            </style>
+
+            <div class="img-stack">
+              <div class="stack-img stack-wide">
+                <input type="file" accept="image/*,video/*">
+                <div class="stack-img-inner">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#bbb" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="#bbb"/><path d="M21 15l-5-5L5 21" stroke="#bbb" stroke-width="1.5"/></svg>
+                  <span>Annotated snapshot</span>
+                </div>
+              </div>
+              <div class="stack-img stack-sq">
+                <input type="file" accept="image/*,video/*">
+                <div class="stack-img-inner">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+                  <span>Feature video</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="proto-wrap dd03">
+          <div class="interactive-badge"><span class="badge-star">&#10024;</span> Interactive</div>
+          <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .screen { background: #f5f5f3; border: 0.5px solid #e0e0de; border-radius: 12px; overflow: hidden; position: relative; min-height: 560px; }
+  .card-view { padding: 20px; }
+  .ds-header { background: #fff; border-radius: 10px; border: 0.5px solid #e8e8e6; padding: 18px 20px 0; margin-bottom: 12px; }
+  .ds-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .ds-title { font-size: 16px; font-weight: 500; color: #111; }
+  .star-row { display: flex; align-items: center; gap: 3px; margin-left: 8px; }
+  .star { color: #f59e0b; font-size: 12px; }
+  .star-score { font-size: 11px; color: #111; font-weight: 500; }
+  .star-count { font-size: 11px; color: #aaa; }
+  .ds-slug { font-size: 10px; color: #bbb; font-family: monospace; margin-bottom: 12px; }
+  .tabs { display: flex; border-top: 0.5px solid #f0f0ee; }
+  .tab { font-size: 11px; color: #aaa; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .tab.active { color: #111; border-bottom-color: #111; }
+  .meta-section { background: #fff; border-radius: 10px; border: 0.5px solid #e8e8e6; padding: 16px 20px; }
+  .meta-row { display: flex; gap: 32px; margin-bottom: 14px; }
+  .meta-item label { font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 3px; }
+  .meta-item span { font-size: 12px; color: #333; }
+  .tag { font-size: 10px; color: #555; background: #f5f5f3; border: 0.5px solid #e0e0de; border-radius: 20px; padding: 2px 8px; }
+  .classif-chip { font-size: 10px; color: #555; border: 0.5px solid #d0d0ce; border-radius: 20px; padding: 2px 8px; }
+  .divider { border: none; border-top: 0.5px solid #f0f0ee; margin: 12px 0; }
+  .desc-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .desc-list li { font-size: 11px; color: #555; line-height: 1.6; padding-left: 14px; position: relative; }
+  .desc-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 4px; height: 4px; background: #ddd; border-radius: 50%; }
+  .access-banner { background: #fff8f0; border: 0.5px solid #fed7aa; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+  .banner-left { display: flex; align-items: center; gap: 10px; }
+  .lock-icon { width: 32px; height: 32px; background: #fff; border: 0.5px solid #fed7aa; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .banner-text strong { font-size: 12px; color: #333; display: block; margin-bottom: 2px; }
+  .banner-text span { font-size: 11px; color: #888; }
+  .req-access-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #e8e8e6 !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 8px 18px !important; cursor: pointer !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+  .req-access-btn:hover { background-color: #dcdcda !important; }
+  .overlay { position: absolute; inset: 0; background: rgba(245,245,243,0.75); backdrop-filter: blur(3px); display: flex; align-items: flex-start; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 20; overflow-y: auto; }
+  .overlay.open { opacity: 1; pointer-events: all; }
+  .form-panel { background: #fff; border: 0.5px solid #d0d0ce; border-radius: 12px; width: 100%; max-width: 520px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-6px); transition: transform 0.2s; overflow: hidden; }
+  .overlay.open .form-panel { transform: translateY(0); }
+  .form-header { padding: 16px 20px; border-bottom: 0.5px solid #f0f0ee; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .form-header-left h2 { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 2px; }
+  .form-header-left p { font-size: 11px; color: #aaa; }
+  .dataset-pill { display: flex; align-items: center; gap: 6px; background: #f5f5f3; border: 0.5px solid #e0e0de; border-radius: 6px; padding: 5px 10px; margin-top: 8px; }
+  .dataset-pill span { font-size: 11px; color: #555; font-weight: 500; }
+  .close-btn { width: 24px; height: 24px; border: 0.5px solid #e0e0de; border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #aaa; font-size: 14px; line-height: 1; }
+  .close-btn:hover { background: #f5f5f3; }
+  .priority-section { padding: 14px 20px; border-bottom: 0.5px solid #f0f0ee; }
+  .priority-label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .priority-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .p-card { border: 0.5px solid #e8e8e6; border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: all 0.15s; background: #fafafa; }
+  .p-card:hover { border-color: #ccc; background: #f5f5f3; }
+  .p-card.selected { background: #fff; border-width: 1.5px; }
+  .p-card.urgent.selected { border-color: #ef4444; }
+  .p-card.semi.selected { border-color: #f59e0b; }
+  .p-card.normal.selected { border-color: #22c55e; }
+  .p-dot { width: 7px; height: 7px; border-radius: 50%; margin-bottom: 6px; }
+  .p-dot.urgent { background: #ef4444; }
+  .p-dot.semi { background: #f59e0b; }
+  .p-dot.normal { background: #22c55e; }
+  .p-name { font-size: 12px; font-weight: 500; color: #333; margin-bottom: 2px; }
+  .p-time { font-size: 10px; color: #aaa; line-height: 1.4; }
+  .p-card.urgent.selected .p-name { color: #ef4444; }
+  .p-card.semi.selected .p-name { color: #f59e0b; }
+  .p-card.normal.selected .p-name { color: #22c55e; }
+  .form-fields { padding: 14px 20px; display: flex; flex-direction: column; gap: 10px; border-bottom: 0.5px solid #f0f0ee; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; }
+  .field input, .field textarea { font-size: 12px; color: #333; background: #fafafa; border: 0.5px solid #e0e0de; border-radius: 6px; padding: 8px 10px; font-family: inherit; outline: none; transition: border-color 0.15s; }
+  .field input:focus, .field textarea:focus { border-color: #aaa; background: #fff; }
+  .field textarea { resize: none; min-height: 64px; line-height: 1.5; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .field-note { font-size: 10px; color: #f59e0b; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+  .field-note-dot { width: 5px; height: 5px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+  .approval-section { padding: 14px 20px; border-bottom: 0.5px solid #f0f0ee; }
+  .approval-label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .approval-chain { display: flex; align-items: center; }
+  .a-step { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+  .a-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
+  .a-avatar.you { background: #f0f0ee; color: #666; }
+  .a-avatar.mgr { background: #e8f4fd; color: #3b82f6; }
+  .a-avatar.owner { background: #e8f4ed; color: #22c55e; }
+  .a-name { font-size: 10px; color: #555; text-align: center; }
+  .a-role { font-size: 9px; color: #bbb; text-align: center; }
+  .a-arrow { flex: 0.4; display: flex; align-items: center; justify-content: center; padding-bottom: 18px; }
+  .notify-section { padding: 12px 20px; border-bottom: 0.5px solid #f0f0ee; display: flex; align-items: center; justify-content: space-between; }
+  .notify-text strong { font-size: 12px; color: #333; display: block; }
+  .notify-text span { font-size: 11px; color: #aaa; }
+  .toggle { width: 36px; height: 20px; border-radius: 20px; background: #e0e0de; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+  .toggle.on { background: #111; }
+  .toggle-knob { width: 16px; height: 16px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+  .toggle.on .toggle-knob { left: 18px; }
+  .form-footer { padding: 14px 20px; display: flex; align-items: center; justify-content: flex-end; gap: 8px; background: #fafafa; border-top: 0.5px solid #f0f0ee; }
+  .cancel-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #ffffff !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 9px 20px !important; cursor: pointer !important; }
+  .cancel-btn:hover { background-color: #f5f5f3 !important; }
+  .submit-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #e8e8e6 !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 9px 24px !important; cursor: pointer !important; }
+  .submit-btn:hover { background-color: #dcdcda !important; }
+  .success-panel { display: none; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; text-align: center; min-height: 300px; }
+  .success-panel.show { display: flex; }
+  .success-icon { width: 48px; height: 48px; background: #f0fdf4; border: 0.5px solid #bbf7d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .success-panel h3 { font-size: 14px; font-weight: 500; color: #111; margin-bottom: 6px; }
+  .success-panel p { font-size: 12px; color: #aaa; line-height: 1.6; max-width: 320px; }
+  .success-meta { display: flex; gap: 20px; margin-top: 16px; }
+  .s-meta-item { text-align: center; }
+  .s-meta-item label { font-size: 10px; color: #bbb; display: block; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .s-meta-item span { font-size: 12px; color: #333; font-weight: 500; }
+  .done-btn { font-size: 12px !important; font-weight: 500 !important; color: #000000 !important; -webkit-text-fill-color: #000000 !important; background-color: #ffffff !important; border: 1px solid #bbbbbb !important; border-radius: 7px !important; padding: 9px 20px !important; cursor: pointer !important; margin-top: 20px !important; }
+  .done-btn:hover { background-color: #f5f5f3 !important; }
+</style>
+
+<div style="padding:1rem 0;">
+<div class="screen">
+  <div class="card-view">
+    <div class="ds-header">
+      <div class="ds-title-row">
+        <span class="ds-title">IPC Sourcing</span>
+        <div class="star-row"><span class="star">&#9733;</span><span class="star-score">4.5</span><span class="star-count">(25)</span></div>
+      </div>
+      <div class="ds-slug">view__gold__sourcing</div>
+      <div class="tabs"><div class="tab active">Overview</div><div class="tab">Sample set view</div><div class="tab">Glossaries</div><div class="tab">Comments</div></div>
+    </div>
+    <div class="meta-section">
+      <div class="meta-row">
+        <div class="meta-item"><label>Data Owner</label><span>BOEHLEN Michael</span></div>
+        <div class="meta-item"><label>Domain</label><span>LSCM</span></div>
+        <div class="meta-item"><label>Tags</label><span class="tag">IPC</span> <span class="tag">Sourcing</span></div>
+        <div class="meta-item"><label>Classification</label><span class="classif-chip">Data Sensitivity</span> <span class="classif-chip">Layer Gold</span></div>
+      </div>
+      <hr class="divider">
+      <ul class="desc-list">
+        <li>Overview of all sources from which an IPC can be supplied or produced.</li>
+        <li>Used by LSCM teams to evaluate supplier coverage and sourcing strategy.</li>
+        <li>Refreshed every Monday morning from OMP system.</li>
+      </ul>
+    </div>
+    <div class="access-banner">
+      <div class="banner-left">
+        <div class="lock-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="6" width="8" height="6" rx="1" stroke="#f97316" stroke-width="1.2"/><path d="M5 6V4.5a2 2 0 114 0V6" stroke="#f97316" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div class="banner-text">
+          <strong>You don&#39;t have access to this dataset</strong>
+          <span>This dataset is outside your domain. Submit a request and your manager will be notified.</span>
+        </div>
+      </div>
+      <button class="req-access-btn" id="rfBtn">Request access</button>
     </div>
   </div>
-</section>
 
-<!-- AI -->
-<section id="ai" style="padding:0;background:none;border:none;">
-  <div style="background:linear-gradient(135deg,#0a0a0f 0%,#12101a 30%,#1a0e1a 60%,#0d0d14 100%);padding:80px 0;position:relative;overflow:hidden;">
-    <!-- Grid overlay -->
-    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(200,57,43,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,57,43,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
-    <!-- Glow orbs -->
-    <div style="position:absolute;top:-80px;left:10%;width:400px;height:400px;background:radial-gradient(circle,rgba(200,57,43,0.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-    <div style="position:absolute;bottom:-100px;right:5%;width:500px;height:500px;background:radial-gradient(circle,rgba(120,40,200,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-
-    <div class="container" style="position:relative;z-index:1;">
-      <div class="fade-up">
-        <div class="eyebrow" style="color:#c8392b;">AI Process</div>
-        <h2 style="color:#fff;">How AI accelerated every stage.</h2>
-        <p style="color:#888;max-width:520px;">Not just faster — smarter. AI let me generate, test, and kill ideas before they became expensive. Here&rsquo;s where it mattered most.</p>
-
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;margin-top:48px;">
-          <div class="ai-futura-card" style="background:#0d0d14;padding:32px 28px;transition:background 0.2s;" onmouseenter="this.style.background='#161622'" onmouseleave="this.style.background='#0d0d14'">
-            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#c8392b,#8b1a1a);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4" stroke="#fff" stroke-width="1.3"/><path d="M10 10l4 4" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
-            </div>
-            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#c8392b;margin-bottom:8px;">Research</div>
-            <h3 style="color:#fff;font-size:15px;margin-bottom:10px;font-weight:500;">Synthesising at speed</h3>
-            <p style="color:#666;font-size:13px;line-height:1.7;margin:0;">Used Claude to cluster stakeholder interview notes, surface contradictions, and draft research questions. Affinity mapping that took days took hours.</p>
-          </div>
-          <div class="ai-futura-card" style="background:#0d0d14;padding:32px 28px;transition:background 0.2s;" onmouseenter="this.style.background='#161622'" onmouseleave="this.style.background='#0d0d14'">
-            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#4c1d95);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="9" rx="1.5" stroke="#fff" stroke-width="1.3"/><path d="M5 14h6M8 11v3" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
-            </div>
-            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#7c3aed;margin-bottom:8px;">Design</div>
-            <h3 style="color:#fff;font-size:15px;margin-bottom:10px;font-weight:500;">AI mockups in hours</h3>
-            <p style="color:#666;font-size:13px;line-height:1.7;margin:0;">Built interactive prototypes with Claude Code and Lovable instead of static wireframes. Walked into stakeholder reviews with working screens, not sketches.</p>
-          </div>
-          <div class="ai-futura-card" style="background:#0d0d14;padding:32px 28px;transition:background 0.2s;" onmouseenter="this.style.background='#161622'" onmouseleave="this.style.background='#0d0d14'">
-            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#0ea5e9,#0369a1);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 10V5a1 1 0 011-1h10a1 1 0 011 1v5a1 1 0 01-1 1H7l-3 2V11H3a1 1 0 01-1-1z" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>
-            </div>
-            <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#0ea5e9;margin-bottom:8px;">Copy &amp; Writing</div>
-            <h3 style="color:#fff;font-size:15px;margin-bottom:10px;font-weight:500;">Plain language, fast</h3>
-            <p style="color:#666;font-size:13px;line-height:1.7;margin:0;">Every label, tooltip, and empty state drafted with AI. Writing clear, plain-language copy for a technical product is hard — AI got me to something that worked in one pass.</p>
+  <div class="overlay" id="rfOverlay">
+    <div class="form-panel" id="rfForm">
+      <div class="form-header">
+        <div class="form-header-left">
+          <h2>Raise a data access request</h2>
+          <p>Your request will be reviewed by your manager and the dataset owner.</p>
+          <div class="dataset-pill">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="2" rx="0.5" fill="#888"/><rect x="2" y="7" width="10" height="2" rx="0.5" fill="#888"/><rect x="2" y="11" width="6" height="2" rx="0.5" fill="#888"/></svg>
+            <span>IPC Sourcing &middot; view__gold__sourcing</span>
           </div>
         </div>
+        <div class="close-btn" id="rfClose">&#x2715;</div>
+      </div>
 
-        <!-- Tools row -->
-        <div style="margin-top:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-          <span style="font-size:11px;color:#444;letter-spacing:0.08em;">Tools used:</span>
-          <span style="font-size:11px;color:#666;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px;">Claude</span>
-          <span style="font-size:11px;color:#666;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px;">Claude Code</span>
-          <span style="font-size:11px;color:#666;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px;">Lovable</span>
-          <span style="font-size:11px;color:#666;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px;">Granola AI</span>
-          <span style="font-size:11px;color:#666;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:4px 12px;">SuperWhisper</span>
+      <div class="priority-section">
+        <div class="priority-label">How urgent is this request?</div>
+        <div class="priority-grid">
+          <div class="p-card urgent" data-p="urgent"><div class="p-dot urgent"></div><div class="p-name">Urgent</div><div class="p-time">Response within 30 mins. If unresolved, admin is automatically notified.</div></div>
+          <div class="p-card semi selected" data-p="semi"><div class="p-dot semi"></div><div class="p-name">Semi-urgent</div><div class="p-time">Approval expected within 24 hours.</div></div>
+          <div class="p-card normal" data-p="normal"><div class="p-dot normal"></div><div class="p-name">Not urgent</div><div class="p-time">Approval expected within 48 hours.</div></div>
         </div>
+      </div>
+
+      <div class="form-fields">
+        <div class="two-col">
+          <div class="field"><label>Requester name</label><input type="text" value="Pooja NS" /></div>
+          <div class="field"><label>Email ID</label><input type="text" value="pooja.suresh.ns@gmail.com" /></div>
+        </div>
+        <div class="two-col">
+          <div class="field"><label>Team</label><input type="text" placeholder="e.g. Sales Analytics" /></div>
+          <div class="field">
+            <label>Manager</label>
+            <input type="text" placeholder="Manager name" />
+            <div class="field-note"><div class="field-note-dot"></div>Your manager will be notified of this request</div>
+          </div>
+        </div>
+        <div class="field"><label>Reason for request</label><textarea placeholder="Briefly describe why you need access and how you plan to use it..."></textarea></div>
+      </div>
+
+      <div class="approval-section">
+        <div class="approval-label">Approval chain</div>
+        <div class="approval-chain">
+          <div class="a-step"><div class="a-avatar you">PN</div><div class="a-name">You</div><div class="a-role">Requester</div></div>
+          <div class="a-arrow"><svg viewBox="0 0 20 10" fill="none" width="20" height="10"><path d="M0 5h16M13 2l4 3-4 3" stroke="#ddd" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="a-step"><div class="a-avatar mgr">MG</div><div class="a-name">Your Manager</div><div class="a-role">Step 1 approval</div></div>
+          <div class="a-arrow"><svg viewBox="0 0 20 10" fill="none" width="20" height="10"><path d="M0 5h16M13 2l4 3-4 3" stroke="#ddd" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="a-step"><div class="a-avatar owner">BM</div><div class="a-name">BOEHLEN Michael</div><div class="a-role">Dataset owner</div></div>
+        </div>
+      </div>
+
+      <div class="notify-section">
+        <div class="notify-text">
+          <strong>Notify me when status changes</strong>
+          <span>Get an email update when your request is approved or rejected</span>
+        </div>
+        <div class="toggle on" id="rfToggle"><div class="toggle-knob"></div></div>
+      </div>
+
+      <div class="form-footer">
+        <button class="cancel-btn" id="rfCancel">Cancel</button>
+        <button class="submit-btn" id="rfSubmit">Submit request</button>
+      </div>
+    </div>
+
+    <div class="form-panel" id="rfSuccess" style="display:none;">
+      <div class="success-panel show">
+        <div class="success-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Request submitted</h3>
+        <p>Your access request for <strong>IPC Sourcing</strong> has been sent. Your manager and the dataset owner will be notified.</p>
+        <div class="success-meta">
+          <div class="s-meta-item"><label>Priority</label><span id="rfPriority">Semi-urgent</span></div>
+          <div class="s-meta-item"><label>Expected response</label><span id="rfTime">Within 24 hours</span></div>
+          <div class="s-meta-item"><label>Ticket ID</label><span>#DAR-2847</span></div>
+        </div>
+        <button class="done-btn" id="rfDone">Back to dataset</button>
       </div>
     </div>
   </div>
-</section>
+</div>
+<div style="font-size:12px;color:#aaa;margin-top:8px;text-align:center;">Click "Request access" &middot; Select priority &middot; Submit</div>
+</div>
 
-<!-- CONTEXT -->
-<section id="context">
-  <div class="container">
-    <div class="fade-up">
-      <div class="eyebrow">Context</div>
-      <h2>The real cost of fragmented data.</h2>
-      <p>When a new employee joins Bridgestone, they inherit a mess. They don&rsquo;t know what datasets exist, where to find them, who owns them, or how reliable they are. So they ask a colleague. That colleague asks another. Days pass.</p>
-      <p>Different teams ended up working from different versions of the same data &mdash; leading to inconsistent decisions across the company.</p>
-      <div class="media-placeholder tall" style="margin-top:40px"><input type="file" accept="image/*,video/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#aaa" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="#aaa"/><path d="M21 15l-5-5L5 21" stroke="#aaa" stroke-width="1.5"/></svg><span>Add context image or video</span></div>
+<script>
+  const rfOv = document.getElementById('rfOverlay');
+  const rfFp = document.getElementById('rfForm');
+  const rfSp = document.getElementById('rfSuccess');
+  function rfOpen() { rfOv.classList.add('open'); }
+  function rfClose() { rfOv.classList.remove('open'); setTimeout(() => { rfFp.style.display=''; rfSp.style.display='none'; }, 250); }
+  document.getElementById('rfBtn').addEventListener('click', rfOpen);
+  document.getElementById('rfClose').addEventListener('click', rfClose);
+  document.getElementById('rfCancel').addEventListener('click', rfClose);
+  document.getElementById('rfDone').addEventListener('click', rfClose);
+  rfOv.addEventListener('click', e => { if(e.target===rfOv) rfClose(); });
+  let selectedPriority = 'semi';
+  const priorityMeta = { urgent:{label:'Urgent',time:'Within 30 minutes'}, semi:{label:'Semi-urgent',time:'Within 24 hours'}, normal:{label:'Not urgent',time:'Within 48 hours'} };
+  document.querySelectorAll('.p-card').forEach(card => {
+    card.addEventListener('click', () => { document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('selected')); card.classList.add('selected'); selectedPriority=card.dataset.p; });
+  });
+  document.getElementById('rfToggle').addEventListener('click', function(){ this.classList.toggle('on'); });
+  document.getElementById('rfSubmit').addEventListener('click', () => {
+    const p = priorityMeta[selectedPriority];
+    document.getElementById('rfPriority').textContent = p.label;
+    document.getElementById('rfTime').textContent = p.time;
+    rfFp.style.display='none'; rfSp.style.display='';
+  });
+</script>
+            </div>
+      </div>
+
+      <!-- Pushback -->
+      <div id="pushback">
+        <div class="eyebrow" style="color:var(--accent);">Pushback</div>
+        <h3 style="font-size:22px;margin-bottom:16px;">Should the request pipeline live inside the app or outside it?</h3>
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;">
+          <div>
+            <p style="font-size:15px;color:#444;line-height:1.8;margin-bottom:16px;">I had to make the case to the data governance team to own a new workflow inside the product &mdash; a real operational ask they hadn&rsquo;t planned for. The existing process was 7 steps across email, Teams, and ServiceNow. No visibility into who was reviewing the request. Users submitted and waited, with no feedback until access was granted or denied.</p>
+            <p style="font-size:15px;color:#444;line-height:1.8;">I showed them a side-by-side of the current 7-step process versus the in-app 3-step flow. The difference in time and steps was the argument.</p>
+            <div style="margin-top:24px;padding:20px 24px;border:1.5px solid var(--accent);border-radius:10px;background:#fdf9f9;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></div>
+                <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:500;">The tradeoff</div>
+              </div>
+              <p style="font-size:14px;color:#333;margin:0;line-height:1.7;">The governance team was worried about accountability &mdash; owning the pipeline meant owning a new operational role. Evidence, not UX principles, moved that conversation.</p>
+            </div>
+          </div>
+          <div style="width:100%;height:320px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Side-by-side comparison: 7 steps vs 3 steps</span>
+</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- TESTING -->
-<section id="testing">
+<!-- RESULTS -->
+<section id="results">
   <div class="container">
     <div class="fade-up">
-      <div class="eyebrow">Decisions Post User Testing</div>
-      <h2>Making difficult decisions after testing.</h2>
-      <p>Early iterations showed domain filters, type filters, and keyword search all at once. Technical users found it manageable. Everyone else found it overwhelming &mdash; too many choices before they&rsquo;d even typed anything.</p>
-      <p>This led directly to the split between <span class="highlight">&ldquo;Exploring&rdquo;</span> and <span class="highlight">&ldquo;I know what I want&rdquo;</span> &mdash; two distinct modes so users could self-select the experience that matched their confidence level.</p>
-      <div class="two-col" style="margin-top:40px">
-        <div class="media-placeholder medium"><input type="file" accept="image/*,video/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Before &mdash; first iteration</span></div>
-        <div class="media-placeholder medium"><input type="file" accept="image/*,video/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>After &mdash; final solution</span></div>
-      </div>
-      <div class="ab-block">
-        <div class="ab-label">A/B &mdash; Request pipeline inside vs outside the app</div>
-        <p style="font-size:13px;color:#666;margin-top:0">I ran a test showing the full journey when requesting access outside the app vs inside it. The difference in steps moved the conversation with the data governance team.</p>
-        <div class="ab-cols">
-          <div class="ab-col">
-            <div class="ab-col-label">Outside (ServiceNow / Email)</div>
-            <div class="ab-step"><span class="ab-step-num">1</span>Find a dataset you might need</div>
-            <div class="ab-step"><span class="ab-step-num">2</span>Search for the data owner manually</div>
-            <div class="ab-step"><span class="ab-step-num">3</span>Send an email or Teams message</div>
-            <div class="ab-step"><span class="ab-step-num">4</span>Wait for response (avg. 7 days)</div>
-            <div class="ab-step"><span class="ab-step-num">5</span>Raise a ServiceNow ticket</div>
-            <div class="ab-step"><span class="ab-step-num">6</span>Wait for approval</div>
-            <div class="ab-step"><span class="ab-step-num">7</span>Hope you got the right file</div>
-          </div>
-          <div class="ab-col ab-winner">
-            <div class="ab-col-label">Inside Data Ichiba &#10003;</div>
-            <div class="ab-step"><span class="ab-step-num">1</span>Search and find the dataset</div>
-            <div class="ab-step"><span class="ab-step-num">2</span>Review metadata and quality scores</div>
-            <div class="ab-step"><span class="ab-step-num">3</span>Click &ldquo;Request access&rdquo;</div>
-            <div class="ab-step"><span class="ab-step-num">4</span>Form auto-fills your details</div>
-            <div class="ab-step"><span class="ab-step-num">5</span>Approval chain notified instantly</div>
-            <div class="ab-step"><span class="ab-step-num">6</span>Access granted within 24h</div>
-          </div>
+      <div class="eyebrow">Results</div>
+      <h2>What we measured.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:40px;">
+        <div style="padding:32px 28px;background:#fafaf8;border-right:1px solid var(--border);border-bottom:1px solid var(--border);">
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Search efficiency</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:6px;">Time-to-dataset reduced</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">Users who previously waited 7+ days to identify and access the right dataset now complete the full journey in under 24 hours.</div>
+        </div>
+        <div style="padding:32px 28px;background:#fafaf8;border-bottom:1px solid var(--border);">
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Task completion</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:6px;">End-to-end requests completed in-app</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">Users now complete the full request pipeline without leaving the application &mdash; no external emails, Teams messages, or ServiceNow tickets.</div>
+        </div>
+        <div style="padding:32px 28px;background:#fafaf8;border-right:1px solid var(--border);">
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Trust &amp; confidence</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:6px;">Dataset ratings and comments adopted</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">The comments and ratings systems became active across high-traffic datasets, reducing repeat questions to data owners.</div>
+        </div>
+        <div style="padding:32px 28px;background:#fafaf8;">
+          <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Support reduction</div>
+          <div style="font-size:15px;font-weight:500;color:#111;margin-bottom:6px;">Data owner inbox volume down</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7;">With metadata, glossaries, and sample data visible before requesting access, ad-hoc requests to data owners dropped significantly.</div>
         </div>
       </div>
     </div>
@@ -2319,12 +2172,26 @@ document.querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{d
     <div class="fade-up">
       <div class="eyebrow">Final Solution</div>
       <h2>Data Ichiba.</h2>
-      <p>An internal web platform for Bridgestone &mdash; one place to search, discover, and access every dataset and report used across the company.</p>
-      <div class="media-placeholder tall" style="margin-top:40px"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Add final product video</span></div>
-      <div class="video-row" style="margin-top:16px">
-        <div class="media-placeholder square"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Search flow</span></div>
-        <div class="media-placeholder square"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Metadata view</span></div>
-        <div class="media-placeholder square"><input type="file" accept="video/*,image/*"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#aaa" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#aaa"/></svg><span>Request pipeline</span></div>
+      <p style="font-size:15px;color:#444;line-height:1.8;max-width:580px;margin-bottom:40px;">An internal web platform for Bridgestone EMEA &mdash; one place to search, discover, and access every dataset and report used across the company. Named after the Japanese word for marketplace.</p>
+      <div style="width:100%;height:440px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Add final product video</span>
+</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;">
+        <div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Search flow</span>
+</div><div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Dataset view</span>
+</div><div style="width:100%;height:200px;background:#eeece8;border:2px dashed #d4d0c8;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#aaa;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;">
+  <input type="file" accept="image/*,video/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#bbb" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="#bbb"/></svg>
+  <span style="opacity:0.6;">Request pipeline</span>
+</div>
       </div>
     </div>
   </div>
@@ -2336,327 +2203,134 @@ document.querySelectorAll('.pill').forEach(p=>{p.addEventListener('click',()=>{d
     <div class="fade-up">
       <div class="eyebrow">Key Learnings</div>
       <h2>What I&rsquo;d take forward.</h2>
-      <ul class="learnings-list">
-        <li class="learning-item"><div class="learning-dash"></div><div><h3>Stakeholder alignment is design work too.</h3><p>Getting the data governance and engineering teams to a shared vision was as much a design challenge as building the product itself.</p></div></li>
-        <li class="learning-item"><div class="learning-dash"></div><div><h3>Data beats principles.</h3><p>Telling stakeholders something is &ldquo;better for users&rdquo; rarely landed. Showing them the data always did.</p></div></li>
-        <li class="learning-item"><div class="learning-dash"></div><div><h3>Know when to push back &mdash; and when not to.</h3><p>Working across multiple teams means the brief shifts constantly. There were moments I had to hold the line, and moments where pushing back wasn&rsquo;t the right move. Knowing the difference mattered.</p></div></li>
-        <li class="learning-item"><div class="learning-dash"></div><div><h3>AI for rapid iteration was a genuine win.</h3><p>It kept the design cycle moving when stakeholder reviews were frequent and feedback was fast.</p></div></li>
-      </ul>
-      <p style="margin-top:40px;font-size:14px;color:var(--muted)">This is just a snapshot of the entire design process.<br>Reach out to <a href="/cdn-cgi/l/email-protection#3159545d5d5e715449505c415d541f525e5c" style="color:var(--black)"><span class="__cf_email__" data-cfemail="78101d141417381d00191508141d561b1715">[email&#160;protected]</span></a> for the full story.</p>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:0;">
+        <div style="padding:28px 0;border-bottom:1px solid var(--border);display:flex;gap:28px;align-items:flex-start;">
+          <div style="width:24px;height:1px;background:var(--muted);margin-top:14px;flex-shrink:0;"></div>
+          <div>
+            <h3 style="font-size:15px;font-weight:500;color:var(--black);margin-bottom:8px;">Stakeholder alignment is design work too</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;max-width:none;margin:0;">Getting the data governance and engineering teams to a shared vision was as much a design challenge as building the product itself. Neither group had the same definition of &ldquo;done.&rdquo;</p>
+          </div>
+        </div>
+        <div style="padding:28px 0;border-bottom:1px solid var(--border);display:flex;gap:28px;align-items:flex-start;">
+          <div style="width:24px;height:1px;background:var(--muted);margin-top:14px;flex-shrink:0;"></div>
+          <div>
+            <h3 style="font-size:15px;font-weight:500;color:var(--black);margin-bottom:8px;">Data beats principles</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;max-width:none;margin:0;">Telling stakeholders something is &ldquo;better for users&rdquo; rarely landed. Showing them the 7-step vs 3-step comparison always did. Evidence moved the conversation every time.</p>
+          </div>
+        </div>
+        <div style="padding:28px 0;border-bottom:1px solid var(--border);display:flex;gap:28px;align-items:flex-start;">
+          <div style="width:24px;height:1px;background:var(--muted);margin-top:14px;flex-shrink:0;"></div>
+          <div>
+            <h3 style="font-size:15px;font-weight:500;color:var(--black);margin-bottom:8px;">Know when to push back &mdash; and when not to</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;max-width:none;margin:0;">Working across multiple competing teams means the brief shifts constantly. There were moments I had to hold the line on the design. There were also moments where letting go was the right call &mdash; knowing the difference mattered more than being right.</p>
+          </div>
+        </div>
+        <div style="padding:28px 0;display:flex;gap:28px;align-items:flex-start;">
+          <div style="width:24px;height:1px;background:var(--muted);margin-top:14px;flex-shrink:0;"></div>
+          <div>
+            <h3 style="font-size:15px;font-weight:500;color:var(--black);margin-bottom:8px;">Plain language beats technical precision</h3>
+            <p style="font-size:14px;color:#555;line-height:1.75;max-width:none;margin:0;">Nobody searched for <code style="font-size:12px;background:#f0f0ee;padding:1px 5px;border-radius:3px;">view__gold__sourcing</code>. Building a human-readable naming layer on top of technical nomenclature was a small decision with an outsized impact on discoverability across the platform.</p>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:48px;font-size:14px;color:var(--muted);">This is just a snapshot of the entire design process.<br>Reach out to <a href="mailto:pooja.suresh.ns@gmail.com" style="color:var(--black);">pooja.suresh.ns@gmail.com</a> for the full story.</p>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>Data Ichiba &middot; Bridgestone &middot; 2025</p>
-  <a href="#hero">&uarr; Back to top</a>
-</footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-// Confetti inside impact cols on hover
-const confettiColors = ['#c8392b','#e8622a','#f0a500','#2a7a4f','#3b82f6','#8b5cf6'];
-document.querySelectorAll('.impact-col').forEach(item => {
-  let fired = false;
-  item.style.overflow = 'hidden';
-  item.style.position = 'relative';
-  item.addEventListener('mouseenter', () => {
-    if (fired) return;
-    fired = true;
-    const w = item.offsetWidth;
-    const h = item.offsetHeight;
-    for (let i = 0; i < 26; i++) {
-      const p = document.createElement('div');
-      p.className = 'confetti-particle';
-      const startX = w * 0.2 + Math.random() * w * 0.6;
-      const startY = h * 0.5 + Math.random() * h * 0.3;
-      const tx = (Math.random() - 0.5) * w * 1.4;
-      const ty = -(h * 0.5 + Math.random() * h * 0.8);
-      p.style.cssText = `
-        left:${startX}px;
-        top:${startY}px;
-        background:${confettiColors[Math.floor(Math.random()*confettiColors.length)]};
-        --tx:${tx}px;
-        --ty:${ty}px;
-        --rot:${Math.random()*400 - 200}deg;
-        animation-duration:${0.5 + Math.random()*0.5}s;
-        animation-delay:${Math.random()*0.08}s;
-        border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
-        width:${4 + Math.random()*6}px;
-        height:${4 + Math.random()*6}px;
-      `;
-      item.appendChild(p);
-      setTimeout(() => p.remove(), 900);
-    }
-    setTimeout(() => { fired = false; }, 1200);
-  });
-});
-
-
-// Timeline step click
-document.querySelectorAll('.timeline-step').forEach(step => {
-  step.addEventListener('click', () => {
-    document.querySelectorAll('.timeline-step').forEach(s => s.classList.remove('active'));
-    step.classList.add('active');
-  });
-});
-
-
-// Scatter bg upload
-document.querySelectorAll('.scatter-bg input[type="file"]').forEach(input => {
-  input.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const bg = input.closest('.scatter-bg');
-    const isVid = file.type.startsWith('video/');
-    bg.querySelectorAll('img,video').forEach(m => m.remove());
-    const m = document.createElement(isVid ? 'video' : 'img');
-    m.src = URL.createObjectURL(file);
-    if (isVid) { m.autoplay=true; m.loop=true; m.muted=true; m.playsInline=true; }
-    bg.appendChild(m);
-    bg.querySelectorAll('.scatter-bg-hint').forEach(el => el.style.display='none');
-  });
-});
-
-</script><script>
-// Scroll fade-in
-const fadeObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold:0.08});
-document.querySelectorAll('.fade-up').forEach(el => fadeObs.observe(el));
-
-// Side nav visibility
-const sideNav = document.getElementById('sideNav');
-const heroEl = document.getElementById('hero');
-window.addEventListener('scroll', () => {
-  sideNav.classList.toggle('visible', window.scrollY > heroEl.offsetHeight * 0.6);
-}, {passive:true});
-
-// Active section
-const sideItems = document.querySelectorAll('.side-nav-item');
-const topLinks = document.querySelectorAll('.nav-links a');
-const secObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(!e.isIntersecting) return;
-    const id = e.target.id;
-    topLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#'+id));
-    sideItems.forEach(l => l.classList.toggle('active', l.dataset.section === id));
-  });
-}, {threshold:0.3, rootMargin:'-10% 0px -60% 0px'});
-document.querySelectorAll('section[id]').forEach(s => secObs.observe(s));
-
-// Counter animation
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const suffix = el.dataset.suffix || '';
-  const dur = 1400;
-  const start = performance.now();
-  const ease = t => 1 - Math.pow(1-t, 3);
-  (function step(now) {
-    const p = Math.min((now-start)/dur, 1);
-    el.textContent = Math.round(ease(p)*target) + suffix;
-    if(p < 1) requestAnimationFrame(step);
-  })(start);
-}
-const impObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(!e.isIntersecting) return;
-    e.target.querySelectorAll('.counter').forEach(el => {
-      if(!el.dataset.done) { el.dataset.done=1; animateCounter(el); }
+<script>
+// Fade-up scroll animations
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); }
     });
-    e.target.querySelectorAll('.impact-col').forEach((item,i) => {
-      if(!item.dataset.done) { item.dataset.done=1; setTimeout(()=>item.classList.add('counted'), i*100); }
-    });
-    impObs.unobserve(e.target);
-  });
-}, {threshold:0.5});
-const impRow = document.getElementById('impactRow');
-if(impRow) impObs.observe(impRow);
-
-// Media upload
-document.querySelectorAll('.media-placeholder input[type="file"]').forEach(input => {
-  input.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if(!file) return;
-    const ph = input.closest('.media-placeholder');
-    const isVid = file.type.startsWith('video/');
-    ph.querySelectorAll('img,video').forEach(m => m.remove());
-    const m = document.createElement(isVid ? 'video' : 'img');
-    m.src = URL.createObjectURL(file);
-    if(isVid) { m.autoplay=true; m.loop=true; m.muted=true; m.playsInline=true; }
-    ph.appendChild(m);
-    ph.querySelectorAll('svg,span').forEach(el => el.style.display='none');
-  });
-});
-
-// Pain point tabs
-document.querySelectorAll('.pain-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.pain-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.pain-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.panel).classList.add('active');
-  });
-});
-
-// Highlight wipe animation
-const wordEl = document.getElementById('highlightWord');
-if (wordEl) {
-  const wipeObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        setTimeout(() => wordEl.classList.add('wiped'), 300);
-        wipeObs.unobserve(e.target);
-      }
-    });
-  }, {threshold: 0.8});
-  wipeObs.observe(wordEl);
-}
-
-// Confetti inside impact cols on hover
-const confettiColors = ['#c8392b','#e8622a','#f0a500','#2a7a4f','#3b82f6','#8b5cf6'];
-document.querySelectorAll('.impact-col').forEach(item => {
-  let fired = false;
-  item.style.overflow = 'hidden';
-  item.style.position = 'relative';
-  item.addEventListener('mouseenter', () => {
-    if (fired) return;
-    fired = true;
-    const w = item.offsetWidth;
-    const h = item.offsetHeight;
-    for (let i = 0; i < 26; i++) {
-      const p = document.createElement('div');
-      p.className = 'confetti-particle';
-      const startX = w * 0.2 + Math.random() * w * 0.6;
-      const startY = h * 0.5 + Math.random() * h * 0.3;
-      const tx = (Math.random() - 0.5) * w * 1.4;
-      const ty = -(h * 0.5 + Math.random() * h * 0.8);
-      p.style.cssText = `
-        left:${startX}px;
-        top:${startY}px;
-        background:${confettiColors[Math.floor(Math.random()*confettiColors.length)]};
-        --tx:${tx}px;
-        --ty:${ty}px;
-        --rot:${Math.random()*400 - 200}deg;
-        animation-duration:${0.5 + Math.random()*0.5}s;
-        animation-delay:${Math.random()*0.08}s;
-        border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
-        width:${4 + Math.random()*6}px;
-        height:${4 + Math.random()*6}px;
-      `;
-      item.appendChild(p);
-      setTimeout(() => p.remove(), 900);
-    }
-    setTimeout(() => { fired = false; }, 1200);
-  });
-});
-
-
-// Timeline step click
-document.querySelectorAll('.timeline-step').forEach(step => {
-  step.addEventListener('click', () => {
-    document.querySelectorAll('.timeline-step').forEach(s => s.classList.remove('active'));
-    step.classList.add('active');
-  });
-});
-
-
-// Scatter bg upload
-document.querySelectorAll('.scatter-bg input[type="file"]').forEach(input => {
-  input.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const bg = input.closest('.scatter-bg');
-    const isVid = file.type.startsWith('video/');
-    bg.querySelectorAll('img,video').forEach(m => m.remove());
-    const m = document.createElement(isVid ? 'video' : 'img');
-    m.src = URL.createObjectURL(file);
-    if (isVid) { m.autoplay=true; m.loop=true; m.muted=true; m.playsInline=true; }
-    bg.appendChild(m);
-    bg.querySelectorAll('.scatter-bg-hint').forEach(el => el.style.display='none');
-  });
-});
-
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(function(el){ obs.observe(el); });
+})();
 </script>
 
-<style>
-/* Interactive proto badge + gradient containers */
-.proto-wrap {
-  position: relative;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 36px;
-}
-.proto-wrap.dd01 {
-  background: linear-gradient(135deg, #3a2828 0%, #2e2020 35%, #4a3030 65%, #3a2424 100%);
-}
-.proto-wrap.dd02 {
-  background: linear-gradient(135deg, #2e2424 0%, #3e2c2a 35%, #322020 65%, #4a3232 100%);
-}
-.proto-wrap.dd03 {
-  background: linear-gradient(135deg, #342828 0%, #4a3030 35%, #2e2020 65%, #3e2a28 100%);
-}
-.interactive-badge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #fff;
-  border: 1px solid #e4e2de;
-  border-radius: 20px;
-  padding: 4px 12px 4px 8px;
-  font-size: 11px;
-  font-weight: 500;
-  color: #555;
-  white-space: nowrap;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.interactive-badge.visible {
-  opacity: 1;
-}
-.badge-star {
-  font-size: 13px;
-  display: inline-block;
-  animation: none;
-  filter: drop-shadow(0 0 0px gold);
-  transition: filter 0.3s;
-}
-.interactive-badge.visible .badge-star {
-  animation: sparkle 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 3px rgba(250,200,0,0.8));
-}
-@keyframes sparkle {
-  0%   { transform: scale(1) rotate(0deg);   filter: drop-shadow(0 0 2px rgba(250,200,0,0.6)); }
-  25%  { transform: scale(1.25) rotate(15deg); filter: drop-shadow(0 0 6px rgba(250,200,0,1)); }
-  50%  { transform: scale(1) rotate(0deg);   filter: drop-shadow(0 0 2px rgba(250,200,0,0.6)); }
-  75%  { transform: scale(1.2) rotate(-10deg); filter: drop-shadow(0 0 5px rgba(250,200,0,0.9)); }
-  100% { transform: scale(1) rotate(0deg);   filter: drop-shadow(0 0 2px rgba(250,200,0,0.6)); }
-}
-</style>
+<script>
+// ── Side nav: show/hide + active + click scroll ──────────────────────────────
+(function(){
+  var nav    = document.getElementById('sideNav');
+  var items  = Array.from(document.querySelectorAll('.sni'));
+  var sects  = items.map(function(i){ return document.getElementById(i.getAttribute('data-section')); });
+
+  // Show after 200px scroll
+  function onScroll(){
+    nav.style.opacity        = window.scrollY > 200 ? '1' : '0';
+    nav.style.pointerEvents  = window.scrollY > 200 ? 'all' : 'none';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Click → smooth scroll
+  items.forEach(function(item){
+    item.addEventListener('click', function(e){
+      e.preventDefault();
+      var el = document.getElementById(item.getAttribute('data-section'));
+      if(el){ window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior:'smooth' }); }
+    });
+  });
+
+  // Active highlight via IntersectionObserver
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var id = entry.target.id;
+      items.forEach(function(i){ i.classList.remove('active'); });
+      var match = items.find(function(i){ return i.getAttribute('data-section') === id; });
+      if(match) match.classList.add('active');
+    });
+  }, { threshold: 0.25, rootMargin: '-10% 0px -55% 0px' });
+
+  sects.forEach(function(s){ if(s) obs.observe(s); });
+})();
+</script>
+
+
 <script>
 (function(){
-  function initBadges() {
-    document.querySelectorAll('.proto-wrap').forEach(function(wrap) {
-      var obs = new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting) {
-          var badge = wrap.querySelector('.interactive-badge');
-          if (badge) badge.classList.add('visible');
-          obs.disconnect();
-        }
-      }, { threshold: 0.3 });
-      obs.observe(wrap);
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initBadges);
-  } else {
-    initBadges();
-  }
+  var wrap = document.getElementById('impactConfettiWrap');
+  if(!wrap) return;
+  var colors = ['#c8392b','#e05555','#f9f8f6','#888','#333','#b02020','#ddd'];
+  var triggered = false;
+  var obs = new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting && !triggered){
+      triggered = true;
+      // burst of 60 pieces across full section
+      for(var i=0;i<60;i++){
+        (function(idx){
+          setTimeout(function(){
+            var el = document.createElement('div');
+            el.style.cssText = 'position:absolute;border-radius:2px;opacity:1;pointer-events:none;';
+            var w = 4 + Math.random()*8;
+            var h = 4 + Math.random()*8;
+            el.style.width  = w+'px';
+            el.style.height = h+'px';
+            el.style.left   = (Math.random()*100)+'%';
+            el.style.top    = (Math.random()*30)+'%';
+            el.style.background = colors[Math.floor(Math.random()*colors.length)];
+            el.style.transform  = 'rotate('+(Math.random()*360)+'deg)';
+            var dur = 1.2 + Math.random()*1;
+            var dy  = 60 + Math.random()*80;
+            var dx  = (Math.random()-0.5)*60;
+            el.style.transition = 'transform '+dur+'s ease-out, opacity '+dur+'s ease-out';
+            wrap.appendChild(el);
+            requestAnimationFrame(function(){
+              requestAnimationFrame(function(){
+                el.style.transform = 'translate('+dx+'px,'+dy+'px) rotate('+(Math.random()*720)+'deg)';
+                el.style.opacity   = '0';
+              });
+            });
+            setTimeout(function(){ el.remove(); }, dur*1000+100);
+          }, idx*20);
+        })(i);
+      }
+    }
+  },{threshold:0.4});
+  obs.observe(document.getElementById('impactSection') || wrap);
 })();
 </script>
 </body>
